@@ -597,3 +597,17 @@ dismissDialog("Report Utilization"); // a (ck)
 // HMemoryUtils.trashcanNow. Engine heap size: 2,697 MB. GUI used memory: 146 MB. Current time: 5/11/26 2:53:56 PM BRT
 // Tcl Message: report_utilization: Time (s): cpu = 00:00:06 ; elapsed = 00:00:03 . Memory (MB): peak = 2915.582 ; gain = 5.770 
 dismissDialog("Report Utilization"); // bx (ck)
+selectTree(PAResourceQtoS.ReportUtilTab_REPORT_UTILIZATION_NAVIGATION_TREE, "[Report Contents, Summary]", 1, false); // k (O, ck)
+// Elapsed time: 716 seconds
+selectTable(PAResourceOtoP.ProjectSummaryUtilizationPanel_PROJECT_SUMMARY_UTILIZATION_TABLE, "IO ; 5 ; 100 ; 5.0", 3, "5.0", 3); // s (Q, ck)
+selectTree(PAResourceQtoS.ReportUtilTab_REPORT_UTILIZATION_NAVIGATION_TREE, "[Report Contents, Hierarchy]", 0, false); // k (O, ck)
+selectTree(PAResourceQtoS.ReportUtilTab_REPORT_UTILIZATION_NAVIGATION_TREE, "[Report Contents, Summary]", 1, false); // k (O, ck)
+selectTableHeader(PAResourceOtoP.ProjectSummaryUtilizationPanel_PROJECT_SUMMARY_UTILIZATION_TABLE, "Resource", 0); // s (Q, ck)
+selectTableHeader(PAResourceOtoP.ProjectSummaryUtilizationPanel_PROJECT_SUMMARY_UTILIZATION_TABLE, "Resource", 0); // s (Q, ck)
+// Elapsed time: 10 seconds
+selectTable(PAResourceOtoP.ProjectSummaryUtilizationPanel_PROJECT_SUMMARY_UTILIZATION_TABLE, "FF ; 8898 ; 35200 ; 25.27841", 1, "FF", 0); // s (Q, ck)
+selectTable(PAResourceOtoP.ProjectSummaryUtilizationPanel_PROJECT_SUMMARY_UTILIZATION_TABLE, "LUT ; 14878 ; 17600 ; 84.53409", 0, "LUT", 0); // s (Q, ck)
+selectTable(PAResourceOtoP.ProjectSummaryUtilizationPanel_PROJECT_SUMMARY_UTILIZATION_TABLE, "IO ; 5 ; 100 ; 5.0", 3, "5.0", 3); // s (Q, ck)
+selectTable(PAResourceOtoP.ProjectSummaryUtilizationPanel_PROJECT_SUMMARY_UTILIZATION_TABLE, "LUT ; 14878 ; 17600 ; 84.53409", 0, "LUT", 0, false, false, false, true, false); // s (Q, ck) - Popup Trigger
+selectTable(PAResourceOtoP.ProjectSummaryUtilizationPanel_PROJECT_SUMMARY_UTILIZATION_TABLE, "LUT ; 14878 ; 17600 ; 84.53409", 0, "LUT", 0, false, false, false, true, false); // s (Q, ck) - Popup Trigger
+selectMenuItem(RDIResourceCommand.RDICommands_COPY, "Copy"); // ad (aj, ck)
