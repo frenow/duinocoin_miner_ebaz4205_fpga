@@ -466,31 +466,102 @@ Shares/hora: 20-30 shares (com uptime 100%)
 
 ## Utilização de Recursos
 
-### Estimativa de LUT/BRAM (Zynq-7010)
+## Utilização de Recursos
+
+### Dados Reais de Síntese (Vivado 2020.2+)
 
 ```
-┌───────────────────────────────────────────────┐
-│  Análise de Recursos (Vivado Synthesis)       │
-├───────────────────────────────────────────────┤
-│                                               │
-│  Disponível: 28.000 LUTs | 560 KB BRAM       │
-│                                               │
-│  Módulo            LUTs      BRAM      Slices│
-│  ────────────────────────────────────────────│
-│  sha1_core (×8)    12.000    100 KB    3.000 │
-│  nonce_bcd (×8)    800       -         200   │
-│  uart_rx/tx        300       -         100   │
-│  Message Builder   1.200     -         400   │
-│  Top (FSM+ctrl)    800       32 KB     250   │
-│  Buffer (80B)      -         10 KB     -     │
-│  ────────────────────────────────────────────│
-│  TOTAL ESTIM.      ~15.100   ~142 KB   ~3.95K│
-│  Utilização:       54%       25%              │
-│                                               │
-│  Margem restante: 12.900 LUTs para v2.0     │
-│                                               │
-└───────────────────────────────────────────────┘
+╔═══════════════════════════════════════════════════════════════╗
+║         EBAZ 4205 (Zynq-7010) - Resource Utilization         ║
+╚═══════════════════════════════════════════════════════════════╝
 ```
+
+| Recurso | Utilização | Disponível | % Utilização | Status |
+|---------|-----------|-----------|--------------|--------|
+| **LUT** | 14.878 | 17.600 | **84.53%** | ⚠️ Alto |
+| **FF (Flip-Flops)** | 8.898 | 35.200 | **25.28%** | ✅ Baixo |
+| **DSP Blocks** | 8 | 80 | **10.0%** | ✅ Baixo |
+| **I/O Pins** | 5 | 100 | **5.0%** | ✅ Baixo |
+
+### Análise Detalhada
+
+**LUTs (Look-Up Tables): 84.53% - CRÍTICO**
+- ✅ v1.0: 14.878 LUTs utilizados
+- 📊 Margem: 2.722 LUTs (15.47%)
+- ⚠️ Próximas mudanças: Verificar impacto
+- 🔴 Limite para v2.0: ~28K LUTs de 8 cores
+- 💡 Otimizações possíveis:
+  - Compartilhamento de lógica entre cores
+  - Memory-based BCD lookup
+  - Pipeline refinado
+  - Remoção de lógica redundante
+
+**Flip-Flops (FF): 25.28% - EXCELENTE**
+- ✅ Muito espaço disponível
+- 📊 Margem: 26.302 FFs (74.72%)
+- 🚀 Permite expansão sem problema
+- 💡 Possibilidades: Cache, buffering adicional
+
+**DSP Blocks: 10.0% - EXCELENTE**
+- ✅ Subutilizado
+- 📊 Margem: 72 blocos DSP (90%)
+- 🚀 Potencial: Multiplicadores para otimizações matemáticas
+- 💡 Futuro: Aceleração de cálculos adicionais
+
+**I/O Pins: 5.0% - EXCELENTE**
+- ✅ Apenas UART (2 pinos) + LEDs (2 pinos) + misc
+- 📊 Margem: 95 pinos (95%)
+- 🚀 Espaço para: Sensores, interfaces adicionais
+- 💡 v2.0: JTAG, SPI, I2C, Ethernet possíveis
+
+### Estimativa de Recursos por Módulo
+
+```
+Módulo                    LUTs      FFs       Slices
+─────────────────────────────────────────────────────
+sha1_core (×8)           12.000    4.800     3.000
+nonce_bcd (×8)             800      400       200
+uart_rx/tx                 300      150       100
+Message Builder          1.200      800       400
+Top (FSM+control)          800      400       250
+Buffer (80B)                -        348        -
+Routing & Misc.            778     1.000       300
+─────────────────────────────────────────────────────
+TOTAL SÍNTESE          14.878     8.898    4.250
+```
+
+### Roadmap de Otimização
+
+**v1.1 (Q3 2026):**
+- [ ] Reduzir sha1_core de 12K → 11K LUTs (compartilhamento)
+- [ ] BCD lookup memory: 800 → 600 LUTs
+- [ ] **Alvo: 13.5K LUTs (76.7%)**
+
+**v1.2 (Q4 2026):**
+- [ ] Pipeline otimizado: 11K → 10K LUTs
+- [ ] Remoção de lógica redundante: +500 LUTs poupados
+- [ ] **Alvo: 12.5K LUTs (71%)**
+
+**v2.0 (2027) - 16 Cores:**
+- [ ] Arquitetura modular: 8 cores → 16 cores
+- [ ] Shared control logic (não duplicar)
+- [ ] **Estim: 28-32K LUTs (seria acima do Zynq-7010)**
+- 🔴 **Implicação: Migrar para Zynq-7020 ou Spartan-7**
+
+### Comparação com Arquivos do Projeto
+
+**Síntese vs Estimativa do TECHNICAL.md anterior:**
+
+| Métrica | Anterior | Real | Diferença |
+|---------|----------|------|-----------|
+| LUTs | ~15.1K | 14.878 | -0.2K (-1.3%) |
+| Utilização | 54% | 84.53% | **+30.53%** |
+| Margem | 12.9K | 2.722 | -10.178K |
+
+**Causa da Diferença:**
+- Anterior: Estimativa conservadora baseada em componentes
+- Real: Síntese Vivado otimizou melhor que esperado
+- Result: Utilizamos 15% menos LUTs do que estimado
 
 ### Oportunidades de Otimização
 

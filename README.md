@@ -428,6 +428,26 @@ ebaz4205-duino-miner/
 └────────────────────────────────────────────┘
 ```
 
+### Utilização de Recursos FPGA
+
+| Recurso | Utilização | Disponível | % Utilização |
+|---------|-----------|-----------|---------------|
+| **LUT** | 14.878 | 17.600 | **84.53%** |
+| **FF** | 8.898 | 35.200 | **25.28%** |
+| **DSP** | 8 | 80 | **10.0%** |
+| **IO** | 5 | 100 | **5.0%** |
+
+**Análise:**
+- ✅ **LUTs**: 84.53% (bem otimizado, margem de 15% para expansões)
+- ✅ **Flip-Flops**: 25.28% (ótimo, muito espaço disponível)
+- ✅ **DSP Blocks**: 10% (pouco utilizado, expansível)
+- ✅ **I/O Pins**: 5% (apenas UART/LEDs, margem para features)
+
+**Potencial para v2.0:**
+- 🚀 Adicionar 16+ cores SHA-1 (LUTs: ~15.1K → ~28K)
+- 🚀 Implementar pipeline otimizado (DSP: ~16-24 blocos)
+- 🚀 Adicionar sensores de temperatura (IO: +2 pinos)
+
 ### Fatores que Afetam Performance
 
 1. **Clock FPGA**: 50 MHz fixo (Zynq)
