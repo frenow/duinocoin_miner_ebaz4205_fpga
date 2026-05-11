@@ -611,3 +611,25 @@ selectTable(PAResourceOtoP.ProjectSummaryUtilizationPanel_PROJECT_SUMMARY_UTILIZ
 selectTable(PAResourceOtoP.ProjectSummaryUtilizationPanel_PROJECT_SUMMARY_UTILIZATION_TABLE, "LUT ; 14878 ; 17600 ; 84.53409", 0, "LUT", 0, false, false, false, true, false); // s (Q, ck) - Popup Trigger
 selectTable(PAResourceOtoP.ProjectSummaryUtilizationPanel_PROJECT_SUMMARY_UTILIZATION_TABLE, "LUT ; 14878 ; 17600 ; 84.53409", 0, "LUT", 0, false, false, false, true, false); // s (Q, ck) - Popup Trigger
 selectMenuItem(RDIResourceCommand.RDICommands_COPY, "Copy"); // ad (aj, ck)
+selectTableHeader(PAResourceOtoP.ProjectSummaryUtilizationPanel_PROJECT_SUMMARY_UTILIZATION_TABLE, "Resource", 0); // s (Q, ck)
+// Elapsed time: 1033 seconds
+selectTableHeader(PAResourceOtoP.ProjectSummaryUtilizationPanel_PROJECT_SUMMARY_UTILIZATION_TABLE, "Resource", 0); // s (Q, ck)
+// HMemoryUtils.trashcanNow. Engine heap size: 2,702 MB. GUI used memory: 139 MB. Current time: 5/11/26 3:23:57 PM BRT
+// Elapsed time: 571 seconds
+selectTab("PlanAheadTabBaseWorkspace_JideTabbedPane", (HResource) null, "Project Summary", 0); // k (j, ck)
+// Elapsed time: 20 seconds
+selectTab((HResource) null, (HResource) null, "Power", 5); // aE (Q, ck)
+// Elapsed time: 26 seconds
+closeFrame(PAResourceOtoP.PAViews_NETLIST, "Netlist"); // aw (aE, ck)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v), design_1_i : design_1 (design_1.bd), design_1 (design_1.v), top_0 : design_1_top_0_0 (Module Reference Wrapper), design_1_top_0_0 (design_1_top_0_0.v), inst : top (top.v)]", 7, true); // B (D, ck) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v), design_1_i : design_1 (design_1.bd), design_1 (design_1.v), top_0 : design_1_top_0_0 (Module Reference Wrapper), design_1_top_0_0 (design_1_top_0_0.v), inst : top (top.v), bcd_inst_6 : nonce_bcd_simple (nonce_bcd_simple.v)]", 14, false, false, false, false, false, true); // B (D, ck) - Double Click
+closeView(PAResourceOtoP.PAViews_PROJECT_SUMMARY, "Project Summary"); // J
+selectCodeEditor("top.v", 134, 265); // ce (w, ck)
+// Elapsed time: 24 seconds
+selectCodeEditor("top.v", 125, 332); // ce (w, ck)
+selectCodeEditor("top.v", 266, 362); // ce (w, ck)
+selectCodeEditor("top.v", 344, 330); // ce (w, ck)
+selectCodeEditor("top.v", 434, 352); // ce (w, ck)
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET

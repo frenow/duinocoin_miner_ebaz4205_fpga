@@ -17,8 +17,8 @@ parameter DIFFICULTY = 100000000; // Valor máximo de nonce para proof-of-work (1
 // ========================================
 // ESTRATÉGIA OCTA SHA-1 CORE
 // ========================================
-// Implementação: 7 cores SHA-1 em paralelo para 7X velocidade de mineração
-// - sha1_core_0 até sha1_core_7: processam nonce_0 até nonce_6 simultaneamente
+// Implementação: 8 cores SHA-1 em paralelo para 8X velocidade de mineração
+// - sha1_core_0 até sha1_core_7: processam nonce_0 até nonce_* simultaneamente
 // - nonce_0 é o registrador; nonce_1-7 são derivados combinacionalmente
 
 // - Todos 8 cores executam SHA-1 simultaneamente
