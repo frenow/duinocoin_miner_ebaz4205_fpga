@@ -6,6 +6,11 @@
 [![Status](https://img.shields.io/badge/status-active-brightgreen.svg)](https://github.com)
 [![Hashrate](https://img.shields.io/badge/Hashrate-4.688%20kH%2Fs-yellowgreen.svg)](#performance)
 
+
+### Did you like the project? Leave a star ⭐ or buy me a coffee 💰. 
+#### DuinoCoin Wallet: frenow 
+#### BTC Wallet: 1HMtKjB7K2bVvuyGySgmFQT2QHfp7zpyzK
+
 Um minerador de **DuinoCoin** de alto desempenho implementado em FPGA usando a placa **EBAZ 4205** com Zynq-7010. Implementa **8 cores SHA-1 em paralelo** para máxima eficiência criptográfica. **Ativo e minerando** com hashrate real de **4.688 kH/s** em dificuldade **900.872**.
 
 ![EBAZ 4205 Board](ebaz4205.jpeg)
