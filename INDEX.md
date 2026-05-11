@@ -63,6 +63,47 @@
 
 ---
 
+### 🔧 **REFACTOR_SUMMARY.md** (14.3 KB) ⭐ NOVO
+**Resumo executivo da refatoração com `generate`:**
+- Análise: 47% do código é repetitivo (458 linhas)
+- Proposta: Reduzir para ~760 linhas (33% menos)
+- Benefícios: BCD converters -89%, SHA1 instantiation -84%
+- Risco: Muito baixo (estrutura apenas, lógica não muda)
+- Timeline: 4.5 horas (3.5h implementação + 1h testing)
+- Escalabilidade: 16 cores requer apenas 1 constante
+
+**Público:** Desenvolvedores de firmware (HDL optimization)
+
+---
+
+### 🎯 **GENERATE_REFACTOR_PROPOSAL.md** (25.8 KB) ⭐ NOVO
+**Análise técnica completa da refatoração:**
+- Detalhamento de cada seção repetitiva
+- ANTES/DEPOIS código para 6 componentes
+- Impacto em síntese (ZERO - mesma LUT/FF)
+- Considerações de Verilog 2001
+- Plano de implementação passo-a-passo
+- Exemplos de escalabilidade futura (v2.0: 16 cores)
+
+**Público:** Desenvolvedores de FPGA/HDL experientes
+
+---
+
+### 📚 **GENERATE_EXAMPLES.md** (18.6 KB) ⭐ NOVO
+**6 exemplos práticos side-by-side:**
+1. Nonce derivation (17 → 9 linhas, -47%)
+2. BCD converter instantiation (111 → 12 linhas, -89%)
+3. ASCII conversion logic (103 → 20 linhas, -81%)
+4. MESSAGE_BLOCK construction (120 → 18 linhas, -85%)
+5. SHA1_CORE instantiation (91 → 15 linhas, -84%)
+6. Control signal resets (16 → 8 linhas, -50%)
+
+Visual side-by-side com code highlighting
+
+**Público:** Todos (exemplos educacionais)**
+
+---
+
 ### 🆘 **SUPPORT.md** (7.25 KB)
 **Suporte & troubleshooting:**
 - FAQ (perguntas frequentes)
@@ -232,6 +273,13 @@ ebaz4205-duino-miner/
 3. Explore código Verilog comentado
 4. Consulte **CONTRIBUTING.md** para submeter mudanças
 
+### Para **Desenvolvedores HDL Avançados** (Otimização de Código)
+
+1. Leia **GENERATE_EXAMPLES.md** (começar simples, 15 min)
+2. Leia **REFACTOR_SUMMARY.md** (visão executiva, 10 min)
+3. Leia **GENERATE_REFACTOR_PROPOSAL.md** (análise completa, 30 min)
+4. Proceder com implementação se autorizado
+
 ### Para **DevOps/Infra**
 
 1. **config.ini** (configuração)
@@ -249,7 +297,10 @@ ebaz4205-duino-miner/
 | CONTRIBUTING.md | 350+ | 7.76 | 8+ |
 | CHANGELOG.md | 200+ | 4.37 | 5+ |
 | SUPPORT.md | 300+ | 7.25 | 7+ |
-| **TOTAL** | **~2050** | **~62** | **~47** |
+| REFACTOR_SUMMARY.md | 300+ | 14.3 | 10+ |
+| GENERATE_REFACTOR_PROPOSAL.md | 480+ | 25.8 | 15+ |
+| GENERATE_EXAMPLES.md | 340+ | 18.6 | 12+ |
+| **TOTAL** | **~3170** | **~120** | **~84** |
 
 ---
 
