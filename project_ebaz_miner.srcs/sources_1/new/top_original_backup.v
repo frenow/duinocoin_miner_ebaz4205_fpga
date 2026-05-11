@@ -9,64 +9,62 @@ module top(
     output wire led_red    	
 );
 
-parameter CLK_FRE  = 50;    // Frequ√™ncia do rel√≥gio em MHz
+parameter CLK_FRE  = 50;    // FrequÍncia do relÛgio em MHz
 parameter UART_FRE = 115200; // Taxa de bauds UART 115200
 
-parameter DIFFICULTY = 100000000; // Valor m√°ximo de nonce para proof-of-work (100.000.000 itera√ß√µes)
+parameter DIFFICULTY = 100000000; // Valor m·ximo de nonce para proof-of-work (100.000.000 iteraÁıes)
 
 // ========================================
-// ESTRAT√âGIA OCTA SHA-1 CORE
+// ESTRAT…GIA OCTA SHA-1 CORE
 // ========================================
-// Implementa√ß√£o: 8 cores SHA-1 em paralelo para 8X velocidade de minera√ß√£o
-// - sha1_core_0 at√© sha1_core_7: processam nonce_0 at√© nonce_* simultaneamente
-// - nonce_0 √© o registrador; nonce_1-7 s√£o derivados combinacionalmente
+// ImplementaÁ„o: 8 cores SHA-1 em paralelo para 8X velocidade de mineraÁ„o
+// - sha1_core_0 atÈ sha1_core_7: processam nonce_0 atÈ nonce_* simultaneamente
+// - nonce_0 È o registrador; nonce_1-7 s„o derivados combinacionalmente
 
 // - Todos 8 cores executam SHA-1 simultaneamente
-// - Incremento: nonce_0 += 8 a cada itera√ß√£o
-// - Resultado: at√© 8x velocidade vs. implementa√ß√£o com 1 core
+// - Incremento: nonce_0 += 8 a cada iteraÁ„o
+// - Resultado: atÈ 8x velocidade vs. implementaÁ„o com 1 core
 
-// Mensagem de entrada (din√¢mica): 40 bytes recebidos via UART, armazenados em buffer[0..39]
+// Mensagem de entrada (din‚mica): 40 bytes recebidos via UART, armazenados em buffer[0..39]
 // Hash SHA-1 esperado: 40 caracteres ASCII hexadecimais recebidos via UART, armazenados em buffer[40..79]
-// Hash representa 20 bytes bin√°rios (160 bits) para compara√ß√£o SHA-1
+// Hash representa 20 bytes bin·rios (160 bits) para comparaÁ„o SHA-1
 reg [159:0] SHA1_EXPECTED;  // Hash SHA-1 esperado (160 bits = 20 bytes, decodificado de buffer[40..79])
 
-// Vari√°vel nonce OCTA-core: 
+// Vari·vel nonce OCTA-core: 
 // - nonce_0: valor atual (registrador) - SEQUENCIAL
 // - nonce_1 a nonce_*: nonce_0 + 1 a nonce_0 + 6 - DERIVADOS COMBINACIONALMENTE
-// Nota: 32 bits suportam at√© 4.294.967.295, mais que suficiente para 100.000.000 dificuldade
+// Nota: 32 bits suportam atÈ 4.294.967.295, mais que suficiente para 100.000.000 dificuldade
 reg [31:0] nonce_0;  // Nonce para sha1_core_0  (incrementado +8)
-// Nonce array: nonce_vec[i] = nonce_0 + i
-wire [31:0] nonce_vec [1:7];
-wire [31:0] nonce_1 = nonce_vec[1];
-wire [31:0] nonce_2 = nonce_vec[2];
-wire [31:0] nonce_3 = nonce_vec[3];
-wire [31:0] nonce_4 = nonce_vec[4];
-wire [31:0] nonce_5 = nonce_vec[5];
-wire [31:0] nonce_6 = nonce_vec[6];
-wire [31:0] nonce_7 = nonce_vec[7];
+wire [31:0] nonce_1;  // Nonce para sha1_core_1 (nonce_0 + 1) - wire combinacional
+wire [31:0] nonce_2;  
+wire [31:0] nonce_3;  
+wire [31:0] nonce_4;  
+wire [31:0] nonce_5;  
+wire [31:0] nonce_6;  
+wire [31:0] nonce_7;  
 
-// Generate nonce offsets
-genvar i_nonce;
-generate
-    for (i_nonce = 1; i_nonce <= 7; i_nonce = i_nonce + 1) begin : gen_nonce
-        assign nonce_vec[i_nonce] = nonce_0 + 32'(i_nonce);
-    end
-endgenerate
+assign nonce_1 = nonce_0 + 32'd1;  // Sempre 1 a mais que nonce_0
+assign nonce_2 = nonce_0 + 32'd2;  // Sempre 2 a mais que nonce_0
+assign nonce_3 = nonce_0 + 32'd3;  // Sempre 3 a mais que nonce_0
+assign nonce_4 = nonce_0 + 32'd4;  // ...
+assign nonce_5 = nonce_0 + 32'd5;  
+assign nonce_6 = nonce_0 + 32'd6;  
+assign nonce_7 = nonce_0 + 32'd7;  
 
-// Convers√£o ASCII do nonce: comprimento vari√°vel (sem zeros √† esquerda)
-// M√°ximo 9 bytes para valores at√© 999.999.999 (menos que 1.000.000.000)
+// Convers„o ASCII do nonce: comprimento vari·vel (sem zeros ‡ esquerda)
+// M·ximo 9 bytes para valores atÈ 999.999.999 (menos que 1.000.000.000)
 // Exemplo: nonce=1        -> nonce_ascii="1"         (1 byte)
 //          nonce=12345    -> nonce_ascii="12345"     (5 bytes)
 //          nonce=120000000 -> nonce_ascii="120000000" (9 bytes)
 
 // ASCII conversion para nonce_0 (registrador - atualizado a cada ciclo)
-reg [71:0] nonce_ascii_0;  // Expandido para 72 bits (9 bytes = at√© 9 d√≠gitos)
-wire [3:0] nonce_ascii_len_0;  // Aumentado para 4 bits (suporta at√© 15 d√≠gitos, usamos at√© 9)
+reg [71:0] nonce_ascii_0;  // Expandido para 72 bits (9 bytes = atÈ 9 dÌgitos)
+wire [3:0] nonce_ascii_len_0;  // Aumentado para 4 bits (suporta atÈ 15 dÌgitos, usamos atÈ 9)
 
 // ASCII conversion para nonce_1 (registrador - atualizado a cada ciclo, derivado de nonce_0 + 1)
-// Nota: Mudado de wire para reg porque recebe atribui√ß√µes em always @(*)
-reg [71:0] nonce_ascii_1;  // Expandido para 72 bits (9 bytes = at√© 9 d√≠gitos)
-wire [3:0] nonce_ascii_len_1;  // Aumentado para 4 bits (suporta at√© 15 d√≠gitos, usamos at√© 9)
+// Nota: Mudado de wire para reg porque recebe atribuiÁıes em always @(*)
+reg [71:0] nonce_ascii_1;  // Expandido para 72 bits (9 bytes = atÈ 9 dÌgitos)
+wire [3:0] nonce_ascii_len_1;  // Aumentado para 4 bits (suporta atÈ 15 dÌgitos, usamos atÈ 9)
 
 reg [71:0] nonce_ascii_2;  
 wire [3:0] nonce_ascii_len_2;  
@@ -87,7 +85,7 @@ reg [71:0] nonce_ascii_7;
 wire [3:0] nonce_ascii_len_7;
 
 // ========================================================================
-// BCD Converter: converte nonce para 9 d√≠gitos
+// BCD Converter: converte nonce para 9 dÌgitos
 // ========================================================================
 wire [3:0] digit9_0, digit8_0, digit7_0, digit6_0, digit5_0, digit4_0, digit3_0, digit2_0, digit1_0;
 wire [3:0] digit9_1, digit8_1, digit7_1, digit6_1, digit5_1, digit4_1, digit3_1, digit2_1, digit1_1;
@@ -210,10 +208,10 @@ nonce_bcd_simple bcd_inst_7 (
     .digit_count(nonce_ascii_len_7)
 );
 
-// Bloco de mensagem: bloco de entrada de 512 bits com preenchimento (padr√£o RFC 3174 SHA-1)
-// Estrutura din√¢mica:
+// Bloco de mensagem: bloco de entrada de 512 bits com preenchimento (padr„o RFC 3174 SHA-1)
+// Estrutura din‚mica:
 //   Bytes 0-39:  Mensagem (40 bytes) do buffer UART
-//   Bytes 40+:   Nonce ASCII (1-9 bytes, comprimento vari√°vel, sem zeros √† esquerda, at√© 120M)
+//   Bytes 40+:   Nonce ASCII (1-9 bytes, comprimento vari·vel, sem zeros ‡ esquerda, atÈ 120M)
 //   Byte 47+:    0x80 (marcador de preenchimento) + bytes zero + comprimento_mensagem_bits (64-bit big-endian)
 
 // ========== MESSAGE_BLOCK_0 para sha1_core_0 com nonce_0 ==========
@@ -237,19 +235,19 @@ wire [15:0] msg_length_bits_6 = 16'd320 + (nonce_ascii_len_6 << 3);
 wire [15:0] msg_length_bits_7 = 16'd320 + (nonce_ascii_len_7 << 3);  
 
 // Implementa buffering de 80 bytes: 40 bytes de mensagem + 40 bytes de hash ASCII hex
-// Recebe buffer completo, ent√£o dispara computa√ß√£o SHA-1
-// Ao encontrar correspond√™ncia, transmite resultado de nonce de 4 bytes
+// Recebe buffer completo, ent„o dispara computaÁ„o SHA-1
+// Ao encontrar correspondÍncia, transmite resultado de nonce de 4 bytes
 // Estrutura: buffer[0..39] = mensagem, buffer[40..79] = hash esperado
 
 // Constante de tamanho de buffer
 localparam BUFFER_SIZE = 80;  // Total: 40 bytes de mensagem + 40 bytes de hash ASCII
-// Buffer de recep√ß√£o din√¢mico
+// Buffer de recepÁ„o din‚mico
 reg [7:0] buffer [0:BUFFER_SIZE-1];  // Buffer de 80 bytes: [0..39] mensagem, [40..79] hash
 
 
-// L√≥gica combinacional: constr√≥i dinamicamente MESSAGE_BLOCK_*
+// LÛgica combinacional: constrÛi dinamicamente MESSAGE_BLOCK_*
 always @(*) begin
-    // Construir nonce_ascii baseado na contagem de d√≠gitos
+    // Construir nonce_ascii baseado na contagem de dÌgitos
     // Converter BCD puro (0-9) para ASCII (0x30-0x39)
      case (nonce_ascii_len_0)
          4'd1: nonce_ascii_0 = {64'd0, 8'h30 + digit1_0};
@@ -356,7 +354,7 @@ always @(*) begin
      endcase
     
     // ========================================================================
-    // Estrutura din√¢mica: buffer[40] + nonce_ascii[vari√°vel] + 0x80 + padding + comprimento
+    // Estrutura din‚mica: buffer[40] + nonce_ascii[vari·vel] + 0x80 + padding + comprimento
     // 
     // Comprimento total = 40 + nonce_ascii_len bytes
     // Comprimento em bits = (40 + nonce_ascii_len) * 8
@@ -373,7 +371,7 @@ always @(*) begin
     // ========================================================================
     
     // Bloco de mensagem = 512 bits total
-    // Posi√ß√£o do padding din√¢mica: buffer[40] + nonce_ascii + 0x80 + zeros + comprimento(2 bytes)
+    // PosiÁ„o do padding din‚mica: buffer[40] + nonce_ascii + 0x80 + zeros + comprimento(2 bytes)
     MESSAGE_BLOCK_0 = {
         // Bytes 0-39: mensagem do buffer UART
         buffer[0], buffer[1], buffer[2], buffer[3], buffer[4], buffer[5], buffer[6], buffer[7],
@@ -382,7 +380,7 @@ always @(*) begin
         buffer[24], buffer[25], buffer[26], buffer[27], buffer[28], buffer[29], buffer[30], buffer[31],
         buffer[32], buffer[33], buffer[34], buffer[35], buffer[36], buffer[37], buffer[38], buffer[39],
         
-          // Nonce ASCII vari√°vel (1-9 bytes) + 0x80 (marcador padding) + zeros + comprimento
+          // Nonce ASCII vari·vel (1-9 bytes) + 0x80 (marcador padding) + zeros + comprimento
           // TOTAL = 512 bits = 64 bytes (40 buffer + 1-9 nonce + 1 pad + padding + 2 length)
           (nonce_ascii_len_0 == 4'd1) ? {nonce_ascii_0[7:0],   8'h80, 160'h00000000000000000000000000000000000000, msg_length_bits_0} :
           (nonce_ascii_len_0 == 4'd2) ? {nonce_ascii_0[15:0],  8'h80, 152'h0000000000000000000000000000000000000, msg_length_bits_0} :
@@ -403,7 +401,7 @@ always @(*) begin
         buffer[24], buffer[25], buffer[26], buffer[27], buffer[28], buffer[29], buffer[30], buffer[31],
         buffer[32], buffer[33], buffer[34], buffer[35], buffer[36], buffer[37], buffer[38], buffer[39],
         
-          // Nonce ASCII vari√°vel (1-9 bytes) + 0x80 (marcador padding) + zeros + comprimento
+          // Nonce ASCII vari·vel (1-9 bytes) + 0x80 (marcador padding) + zeros + comprimento
           // TOTAL = 512 bits = 64 bytes (40 buffer + 1-9 nonce + 1 pad + padding + 2 length)
           (nonce_ascii_len_1 == 4'd1) ? {nonce_ascii_1[7:0],   8'h80, 160'h0000000000000000000, msg_length_bits_1} :
           (nonce_ascii_len_1 == 4'd2) ? {nonce_ascii_1[15:0],  8'h80, 152'h000000000000000000, msg_length_bits_1} :
@@ -424,7 +422,7 @@ always @(*) begin
         buffer[24], buffer[25], buffer[26], buffer[27], buffer[28], buffer[29], buffer[30], buffer[31],
         buffer[32], buffer[33], buffer[34], buffer[35], buffer[36], buffer[37], buffer[38], buffer[39],
         
-          // Nonce ASCII vari√°vel (1-9 bytes) + 0x80 (marcador padding) + zeros + comprimento
+          // Nonce ASCII vari·vel (1-9 bytes) + 0x80 (marcador padding) + zeros + comprimento
           // TOTAL = 512 bits = 64 bytes (40 buffer + 1-9 nonce + 1 pad + padding + 2 length)
           (nonce_ascii_len_2 == 4'd1) ? {nonce_ascii_2[7:0],   8'h80, 160'h0000000000000000000, msg_length_bits_2} :
           (nonce_ascii_len_2 == 4'd2) ? {nonce_ascii_2[15:0],  8'h80, 152'h000000000000000000, msg_length_bits_2} :
@@ -445,7 +443,7 @@ always @(*) begin
         buffer[24], buffer[25], buffer[26], buffer[27], buffer[28], buffer[29], buffer[30], buffer[31],
         buffer[32], buffer[33], buffer[34], buffer[35], buffer[36], buffer[37], buffer[38], buffer[39],
         
-          // Nonce ASCII vari√°vel (1-9 bytes) + 0x80 (marcador padding) + zeros + comprimento
+          // Nonce ASCII vari·vel (1-9 bytes) + 0x80 (marcador padding) + zeros + comprimento
           // TOTAL = 512 bits = 64 bytes (40 buffer + 1-9 nonce + 1 pad + padding + 2 length)
           (nonce_ascii_len_3 == 4'd1) ? {nonce_ascii_3[7:0],   8'h80, 160'h0000000000000000000, msg_length_bits_3} :
           (nonce_ascii_len_3 == 4'd2) ? {nonce_ascii_3[15:0],  8'h80, 152'h000000000000000000, msg_length_bits_3} :
@@ -466,7 +464,7 @@ always @(*) begin
         buffer[24], buffer[25], buffer[26], buffer[27], buffer[28], buffer[29], buffer[30], buffer[31],
         buffer[32], buffer[33], buffer[34], buffer[35], buffer[36], buffer[37], buffer[38], buffer[39],
         
-          // Nonce ASCII vari√°vel (1-9 bytes) + 0x80 (marcador padding) + zeros + comprimento
+          // Nonce ASCII vari·vel (1-9 bytes) + 0x80 (marcador padding) + zeros + comprimento
           // TOTAL = 512 bits = 64 bytes (40 buffer + 1-9 nonce + 1 pad + padding + 2 length)
           (nonce_ascii_len_4 == 4'd1) ? {nonce_ascii_4[7:0],   8'h80, 160'h0000000000000000000, msg_length_bits_4} :
           (nonce_ascii_len_4 == 4'd2) ? {nonce_ascii_4[15:0],  8'h80, 152'h000000000000000000, msg_length_bits_4} :
@@ -487,7 +485,7 @@ always @(*) begin
         buffer[24], buffer[25], buffer[26], buffer[27], buffer[28], buffer[29], buffer[30], buffer[31],
         buffer[32], buffer[33], buffer[34], buffer[35], buffer[36], buffer[37], buffer[38], buffer[39],
         
-          // Nonce ASCII vari√°vel (1-9 bytes) + 0x80 (marcador padding) + zeros + comprimento
+          // Nonce ASCII vari·vel (1-9 bytes) + 0x80 (marcador padding) + zeros + comprimento
           // TOTAL = 512 bits = 64 bytes (40 buffer + 1-9 nonce + 1 pad + padding + 2 length)
           (nonce_ascii_len_5 == 4'd1) ? {nonce_ascii_5[7:0],   8'h80, 160'h0000000000000000000, msg_length_bits_5} :
           (nonce_ascii_len_5 == 4'd2) ? {nonce_ascii_5[15:0],  8'h80, 152'h000000000000000000, msg_length_bits_5} :
@@ -508,7 +506,7 @@ always @(*) begin
         buffer[24], buffer[25], buffer[26], buffer[27], buffer[28], buffer[29], buffer[30], buffer[31],
         buffer[32], buffer[33], buffer[34], buffer[35], buffer[36], buffer[37], buffer[38], buffer[39],
         
-          // Nonce ASCII vari√°vel (1-9 bytes) + 0x80 (marcador padding) + zeros + comprimento
+          // Nonce ASCII vari·vel (1-9 bytes) + 0x80 (marcador padding) + zeros + comprimento
           // TOTAL = 512 bits = 64 bytes (40 buffer + 1-9 nonce + 1 pad + padding + 2 length)
           (nonce_ascii_len_6 == 4'd1) ? {nonce_ascii_6[7:0],   8'h80, 160'h0000000000000000000, msg_length_bits_6} :
           (nonce_ascii_len_6 == 4'd2) ? {nonce_ascii_6[15:0],  8'h80, 152'h000000000000000000, msg_length_bits_6} :
@@ -529,7 +527,7 @@ always @(*) begin
         buffer[24], buffer[25], buffer[26], buffer[27], buffer[28], buffer[29], buffer[30], buffer[31],
         buffer[32], buffer[33], buffer[34], buffer[35], buffer[36], buffer[37], buffer[38], buffer[39],
         
-          // Nonce ASCII vari√°vel (1-9 bytes) + 0x80 (marcador padding) + zeros + comprimento
+          // Nonce ASCII vari·vel (1-9 bytes) + 0x80 (marcador padding) + zeros + comprimento
           // TOTAL = 512 bits = 64 bytes (40 buffer + 1-9 nonce + 1 pad + padding + 2 length)
           (nonce_ascii_len_7 == 4'd1) ? {nonce_ascii_7[7:0],   8'h80, 160'h0000000000000000000, msg_length_bits_7} :
           (nonce_ascii_len_7 == 4'd2) ? {nonce_ascii_7[15:0],  8'h80, 152'h000000000000000000, msg_length_bits_7} :
@@ -542,11 +540,11 @@ always @(*) begin
           /* 4'd9 */                    {nonce_ascii_7[71:0],  8'h80, 96'h00000000000, msg_length_bits_7}
     };
     
-    // SHA1_EXPECTED: Decodifica 40 caracteres ASCII hexadecimais de buffer[40..79] em hash bin√°rio de 160 bits
-    // Convers√£o: cada par de caracteres ASCII hex [2n, 2n+1] torna-se um byte bin√°rio
-    // Exemplo: ASCII '48' -> 0x48, 'a3' -> 0xa3, etc. (suporta mai√∫sculas e min√∫sculas)
+    // SHA1_EXPECTED: Decodifica 40 caracteres ASCII hexadecimais de buffer[40..79] em hash bin·rio de 160 bits
+    // Convers„o: cada par de caracteres ASCII hex [2n, 2n+1] torna-se um byte bin·rio
+    // Exemplo: ASCII '48' -> 0x48, 'a3' -> 0xa3, etc. (suporta mai˙sculas e min˙sculas)
     SHA1_EXPECTED = {
-        // Bytes 0-19: Decodifica pares hex de √≠ndices de buffer 40-79
+        // Bytes 0-19: Decodifica pares hex de Ìndices de buffer 40-79
         (buffer[40] >= 8'h61 ? buffer[40] - 8'h57 : buffer[40] - 8'h30) << 4 | 
         (buffer[41] >= 8'h61 ? buffer[41] - 8'h57 : buffer[41] - 8'h30),
         (buffer[42] >= 8'h61 ? buffer[42] - 8'h57 : buffer[42] - 8'h30) << 4 | 
@@ -591,17 +589,17 @@ always @(*) begin
     
 end
 
-// Sinais de computa√ß√£o SHA-1 (OCTA-CORE)
-reg [27:0] clock_counter;     // Contador de temporiza√ß√£o da m√°quina de estados
+// Sinais de computaÁ„o SHA-1 (OCTA-CORE)
+reg [27:0] clock_counter;     // Contador de temporizaÁ„o da m·quina de estados
 reg nonce_increment_done;     // flag: garante que nonce incrementa exatamente uma vez por buffer
 
 // ========== REGISTRADORES DE RESULTADO PARA SHA1_CORE_0 ==========
 reg [159:0] sha1_digest_0;        // Resultado do resumo SHA-1 computado para nonce_0
-reg sha1_digest_0_valid;          // flag: computa√ß√£o SHA-1 completa para nonce_0
+reg sha1_digest_0_valid;          // flag: computaÁ„o SHA-1 completa para nonce_0
 
 // ========== REGISTRADORES DE RESULTADO PARA SHA1_CORE_1 ==========
 reg [159:0] sha1_digest_1;        // Resultado do resumo SHA-1 computado para nonce_1
-reg sha1_digest_1_valid;          // flag: computa√ß√£o SHA-1 completa para nonce_1
+reg sha1_digest_1_valid;          // flag: computaÁ„o SHA-1 completa para nonce_1
 reg [159:0] sha1_digest_2;        // ...
 reg sha1_digest_2_valid;          
 reg [159:0] sha1_digest_3;        
@@ -616,25 +614,25 @@ reg [159:0] sha1_digest_7;
 reg sha1_digest_7_valid;          
 
 // ========== SINAIS PARA SHA1_CORE_0 ==========
-wire sha1_core_0_ready;           // Sinal: n√∫cleo SHA-1 pronto (pode aceitar nova computa√ß√£o)
-wire [159:0] sha1_core_0_digest;  // Resumo de sa√≠da do n√∫cleo SHA-1 (160 bits)
-wire sha1_core_0_digest_valid;    // flag: conclus√£o do n√∫cleo SHA-1
-reg sha1_0_init;                  // Sinal pulsado: dispara inicializa√ß√£o do n√∫cleo SHA-1
-reg sha1_0_next;                  // Sinal pulsado: dispara processamento do pr√≥ximo bloco
+wire sha1_core_0_ready;           // Sinal: n˙cleo SHA-1 pronto (pode aceitar nova computaÁ„o)
+wire [159:0] sha1_core_0_digest;  // Resumo de saÌda do n˙cleo SHA-1 (160 bits)
+wire sha1_core_0_digest_valid;    // flag: conclus„o do n˙cleo SHA-1
+reg sha1_0_init;                  // Sinal pulsado: dispara inicializaÁ„o do n˙cleo SHA-1
+reg sha1_0_next;                  // Sinal pulsado: dispara processamento do prÛximo bloco
 
 // ========== SINAIS PARA SHA1_CORE_1 ==========
-wire sha1_core_1_ready;           // Sinal: n√∫cleo SHA-1 pronto (pode aceitar nova computa√ß√£o)
-wire [159:0] sha1_core_1_digest;  // Resumo de sa√≠da do n√∫cleo SHA-1 (160 bits)
-wire sha1_core_1_digest_valid;    // flag: conclus√£o do n√∫cleo SHA-1
-reg sha1_1_init;                  // Sinal pulsado: dispara inicializa√ß√£o do n√∫cleo SHA-1
-reg sha1_1_next;                  // Sinal pulsado: dispara processamento do pr√≥ximo bloco
+wire sha1_core_1_ready;           // Sinal: n˙cleo SHA-1 pronto (pode aceitar nova computaÁ„o)
+wire [159:0] sha1_core_1_digest;  // Resumo de saÌda do n˙cleo SHA-1 (160 bits)
+wire sha1_core_1_digest_valid;    // flag: conclus„o do n˙cleo SHA-1
+reg sha1_1_init;                  // Sinal pulsado: dispara inicializaÁ„o do n˙cleo SHA-1
+reg sha1_1_next;                  // Sinal pulsado: dispara processamento do prÛximo bloco
 
 // ========== SINAIS PARA SHA1_CORE_2 ==========
-wire sha1_core_2_ready;           // Sinal: n√∫cleo SHA-1 pronto (pode aceitar nova computa√ß√£o)
-wire [159:0] sha1_core_2_digest;  // Resumo de sa√≠da do n√∫cleo SHA-1 (160 bits)
-wire sha1_core_2_digest_valid;    // flag: conclus√£o do n√∫cleo SHA-1
-reg sha1_2_init;                  // Sinal pulsado: dispara inicializa√ß√£o do n√∫cleo SHA-1
-reg sha1_2_next;                  // Sinal pulsado: dispara processamento do pr√≥ximo bloco
+wire sha1_core_2_ready;           // Sinal: n˙cleo SHA-1 pronto (pode aceitar nova computaÁ„o)
+wire [159:0] sha1_core_2_digest;  // Resumo de saÌda do n˙cleo SHA-1 (160 bits)
+wire sha1_core_2_digest_valid;    // flag: conclus„o do n˙cleo SHA-1
+reg sha1_2_init;                  // Sinal pulsado: dispara inicializaÁ„o do n˙cleo SHA-1
+reg sha1_2_next;                  // Sinal pulsado: dispara processamento do prÛximo bloco
 
 wire sha1_core_3_ready;           // ...
 wire [159:0] sha1_core_3_digest;  
@@ -667,41 +665,41 @@ reg sha1_7_init;
 reg sha1_7_next;                  
 
 // Sinais de controle geral
-wire sha1_start;                  // Sinal de in√≠cio: ativado quando buffer UART est√° cheio (estado BUFFER_FULL)
-wire uart_tx_done_signal;         // Sinal de conclus√£o: ativado quando transmiss√£o UART termina (estado UART_TX_DONE)
+wire sha1_start;                  // Sinal de inÌcio: ativado quando buffer UART est· cheio (estado BUFFER_FULL)
+wire uart_tx_done_signal;         // Sinal de conclus„o: ativado quando transmiss„o UART termina (estado UART_TX_DONE)
 
-reg led_red_output;              // Sa√≠da LED: status de correspond√™ncia SHA-1
-reg led_green_output;           // Sa√≠da LED: status de correspond√™ncia SHA-1
+reg led_red_output;              // SaÌda LED: status de correspondÍncia SHA-1
+reg led_green_output;           // SaÌda LED: status de correspondÍncia SHA-1
 
 reg [27:0] blink_counter;    // Contador de pisca para LED
 
-// M√°quina de estados SHA-1: implementa proof-of-work com itera√ß√£o de nonce
+// M·quina de estados SHA-1: implementa proof-of-work com iteraÁ„o de nonce
 // Estados: RESET ? IDLE ? INIT_SHA1 ? RUNNING ? DONE_WAIT ? RESULT
-// Em RESULT: se hash corresponde, transmite nonce; caso contr√°rio, incrementa e tenta novamente
+// Em RESULT: se hash corresponde, transmite nonce; caso contr·rio, incrementa e tenta novamente
 reg [2:0] state;
 localparam STATE_RESET      = 3'b000;  // Inicializar: reinicia todos os contadores
-localparam STATE_IDLE       = 3'b001;  // Aguardar: n√∫cleo SHA-1 pronto E buffer UART cheio
-localparam STATE_INIT_SHA1  = 3'b010;  // Inicializar n√∫cleo SHA-1 com MESSAGE_BLOCK
-localparam STATE_RUNNING    = 3'b011;  // Atraso: aguardar conclus√£o do n√∫cleo SHA-1 (~1 segundo)
+localparam STATE_IDLE       = 3'b001;  // Aguardar: n˙cleo SHA-1 pronto E buffer UART cheio
+localparam STATE_INIT_SHA1  = 3'b010;  // Inicializar n˙cleo SHA-1 com MESSAGE_BLOCK
+localparam STATE_RUNNING    = 3'b011;  // Atraso: aguardar conclus„o do n˙cleo SHA-1 (~1 segundo)
 localparam STATE_DONE_WAIT  = 3'b100;  // Pesquisar: aguardar flag digest_valid SHA-1
-localparam STATE_RESULT     = 3'b101;  // Verificar: se correspond√™ncia encontrada, sinaliza TX UART; caso contr√°rio incrementa nonce e tenta novamente
+localparam STATE_RESULT     = 3'b101;  // Verificar: se correspondÍncia encontrada, sinaliza TX UART; caso contr·rio incrementa nonce e tenta novamente
 
-// Sinais de recep√ß√£o UART
+// Sinais de recepÁ„o UART
 wire [7:0] rx_data;        // Byte de dados recebido
-wire rx_data_valid;       // flag de dados v√°lidos RX
+wire rx_data_valid;       // flag de dados v·lidos RX
 reg rx_data_ready = 1'b1; // flag RX pronto
 
-// Sinais de transmiss√£o UART
+// Sinais de transmiss„o UART
 reg [7:0] tx_data;       // Byte de dados a transmitir
-reg tx_data_valid;      // flag de dados v√°lidos TX
+reg tx_data_valid;      // flag de dados v·lidos TX
 wire tx_data_ready;    // flag TX pronto
 
-// Sa√≠das LED: invertidas porque LEDs est√£o em ativo-baixo
+// SaÌdas LED: invertidas porque LEDs est„o em ativo-baixo
 assign led_green = ~led_green_output;                     
 assign led_red   = ~led_red_output;   
 
 // ========================================
-// INSTANCIA√á√ÉO DOS n CORES SHA-1
+// INSTANCIA«√O DOS n CORES SHA-1
 // ========================================
 
 // ========== SHA1_CORE_0: Processa nonce_0 (nonce par) ==========
@@ -714,10 +712,10 @@ sha1_core sha1_inst_0(
     .block(MESSAGE_BLOCK_0),    // Bloco de mensagem com nonce_0
     .ready(sha1_core_0_ready),  // Flag: core pronto
     .digest(sha1_core_0_digest),  // Resultado SHA-1 (160 bits)
-    .digest_valid(sha1_core_0_digest_valid)  // Flag: resultado v√°lido
+    .digest_valid(sha1_core_0_digest_valid)  // Flag: resultado v·lido
 );
 
-// ========== SHA1_CORE_1: Processa nonce_1 (nonce √≠mpar) ==========
+// ========== SHA1_CORE_1: Processa nonce_1 (nonce Ìmpar) ==========
 // Conecta MESSAGE_BLOCK_1 com sinais de controle sha1_1_*
 sha1_core sha1_inst_1(
     .clk(clk),
@@ -727,7 +725,7 @@ sha1_core sha1_inst_1(
     .block(MESSAGE_BLOCK_1),    // Bloco de mensagem com nonce_1
     .ready(sha1_core_1_ready),  // Flag: core pronto
     .digest(sha1_core_1_digest),  // Resultado SHA-1 (160 bits)
-    .digest_valid(sha1_core_1_digest_valid)  // Flag: resultado v√°lido
+    .digest_valid(sha1_core_1_digest_valid)  // Flag: resultado v·lido
 );
 
 
@@ -798,7 +796,7 @@ sha1_core sha1_inst_7(
     .digest_valid(sha1_core_7_digest_valid)  
 );
 
-// Recep√ß√£o UART
+// RecepÁ„o UART
 uart_rx #(
     .CLK_FRE(CLK_FRE),
     .BAUD_RATE(UART_FRE)
@@ -811,7 +809,7 @@ uart_rx #(
     .rx_pin(uart_rx)
 );
 
-// Transmiss√£o UART
+// Transmiss„o UART
 uart_tx #(
     .CLK_FRE(CLK_FRE),
     .BAUD_RATE(UART_FRE)
@@ -824,14 +822,14 @@ uart_tx #(
     .tx_pin(uart_tx)
 );
 
-// L√≥gica principal da m√°quina de estados SHA-1
-// Implementa minera√ß√£o proof-of-work com OCTA-CORE SHA-1
-// itera nonce_0 de 7 em 7: processando nonce_0 at√© nonce_* em paralelo
+// LÛgica principal da m·quina de estados SHA-1
+// Implementa mineraÁ„o proof-of-work com OCTA-CORE SHA-1
+// itera nonce_0 de 7 em 7: processando nonce_0 atÈ nonce_* em paralelo
 always @(posedge clk) begin
     // ========== RESET DOS SINAIS DE CONTROLE ==========
-    // Estes sinais s√£o pulsados (ativos por 1 ciclo apenas)
-    sha1_0_init <= 1'b0;  // Pulso: ativado por um ciclo para disparar inicializa√ß√£o SHA-1 core 0
-    sha1_0_next <= 1'b0;  // Pulso: ativado por um ciclo para disparar pr√≥ximo bloco SHA-1 core 0
+    // Estes sinais s„o pulsados (ativos por 1 ciclo apenas)
+    sha1_0_init <= 1'b0;  // Pulso: ativado por um ciclo para disparar inicializaÁ„o SHA-1 core 0
+    sha1_0_next <= 1'b0;  // Pulso: ativado por um ciclo para disparar prÛximo bloco SHA-1 core 0
     sha1_1_init <= 1'b0;  // ...
     sha1_1_next <= 1'b0;  
     sha1_2_init <= 1'b0;  
@@ -849,15 +847,15 @@ always @(posedge clk) begin
 
     case (state)
 STATE_RESET: begin
-    // ========== INICIALIZA√á√ÉO: RESET GERAL ==========
-    // Reinicia todos os contadores e sa√≠das
+    // ========== INICIALIZA«√O: RESET GERAL ==========
+    // Reinicia todos os contadores e saÌdas
     led_red_output   <= 1'b0;
     led_green_output <= 1'b0;
 
     clock_counter <= 28'd0;
-    nonce_0 <= 32'd0;  // Reinicia nonce_0 para 0 na inicializa√ß√£o
+    nonce_0 <= 32'd0;  // Reinicia nonce_0 para 0 na inicializaÁ„o
 
-    // Aguarda 5 ciclos de rel√≥gio para estabiliza√ß√£o do sistema
+    // Aguarda 5 ciclos de relÛgio para estabilizaÁ„o do sistema
     if (clock_counter >= 28'd5) begin
         clock_counter <= 28'd0;
         state <= STATE_IDLE;
@@ -868,26 +866,26 @@ end
 
 STATE_IDLE: begin
     // ========== AGUARDAR OCTA-CORE PRONTO + BUFFER CHEIO ==========
-    // Reinicia nonce_0 quando transmiss√£o UART completa (prepara para pr√≥xima mensagem)
+    // Reinicia nonce_0 quando transmiss„o UART completa (prepara para prÛxima mensagem)
     if (uart_tx_done_signal) begin
         nonce_0 <= 32'd0;
     end
     
-    // ========== INCREMENTAR NONCE_0 (ESTRAT√âGIA OCTA-CORE) ==========
+    // ========== INCREMENTAR NONCE_0 (ESTRAT…GIA OCTA-CORE) ==========
     // Primeiro incremento: disparado por sha1_start e flag nonce_increment_done
     // Garante que nonce_0 incrementa exatamente uma vez por buffer de mensagem
-    // Incrementa de +8 para processar nonce_0 at√© nonce_7 em paralelo
+    // Incrementa de +8 para processar nonce_0 atÈ nonce_7 em paralelo
     if (sha1_start && !nonce_increment_done) begin
-        if (nonce_0 < DIFFICULTY - 1) begin  // Garante espa√ßo para nonce_1 = nonce_0 + 1
+        if (nonce_0 < DIFFICULTY - 1) begin  // Garante espaÁo para nonce_1 = nonce_0 + 1
             nonce_0 <= nonce_0 + 32'd8;  // INCREMENTA +8 (em vez de +1)
         end else begin
-            nonce_0 <= 32'd0;  // Reinicia para 0 ap√≥s atingir dificuldade m√°xima
+            nonce_0 <= 32'd0;  // Reinicia para 0 apÛs atingir dificuldade m·xima
         end
         nonce_increment_done <= 1'b1;  // Define flag para prevenir incrementos redundantes
     end
     
-    // ========== TRANSI√á√ÉO PARA INIT_SHA1 ==========
-    // Condi√ß√£o: TODOS 7 cores prontos AND buffer cheio AND nonce j√° incrementado
+    // ========== TRANSI«√O PARA INIT_SHA1 ==========
+    // CondiÁ„o: TODOS 7 cores prontos AND buffer cheio AND nonce j· incrementado
     if ((sha1_core_0_ready && 
          sha1_core_1_ready && 
          sha1_core_2_ready && 
@@ -907,7 +905,7 @@ STATE_INIT_SHA1: begin
     // - sha1_core_0 com MESSAGE_BLOCK_0 (nonce_0)
     // - sha1_core_1 com MESSAGE_BLOCK_1 (nonce_1 = nonce_0 + 1)
     // - ...
-    led_red_output <= 1'b1;  // LED: indica que processamento come√ßou
+    led_red_output <= 1'b1;  // LED: indica que processamento comeÁou
     
     sha1_0_init <= 1'b1;  // Pulso: dispara CORE 0 por um ciclo
     sha1_1_init <= 1'b1;  // Pulso: dispara CORE 1 por um ciclo
@@ -923,7 +921,7 @@ STATE_INIT_SHA1: begin
 end
 
 STATE_RUNNING: begin
-             // Aguarda conclus√£o do n√∫cleo SHA-1 contador atinge ~185 ns, mas SHA-1 normalmente completa neste intervalo
+             // Aguarda conclus„o do n˙cleo SHA-1 contador atinge ~185 ns, mas SHA-1 normalmente completa neste intervalo
              if (clock_counter >= 28'd5) begin
                  state <= STATE_DONE_WAIT;
                  clock_counter <= 28'd0;
@@ -934,7 +932,7 @@ STATE_RUNNING: begin
 
 STATE_DONE_WAIT: begin
     // ========== AGUARDAR TODOS OS 7 CORES COMPLETAREM ==========
-    // Pesquisa sinais v√°lidos de resumo SHA-1 (todos 7 resultados prontos)
+    // Pesquisa sinais v·lidos de resumo SHA-1 (todos 7 resultados prontos)
     // Quando TODOS os cores terminam, captura os resultados
     if (sha1_core_0_digest_valid &&
         sha1_core_1_digest_valid && 
@@ -968,8 +966,8 @@ end
 
 STATE_RESULT: begin
     // ========== VERIFICAR OCTA-CORE: MATCH EM NONCE_0 OU NONCE_1 OU ... OU NONCE_* ==========
-    // L√≥gica: Verifica se SHA1(msg) correspondem ao esperado
-    // Ou se atingimos limite de dificuldade (nonce_0 >= DIFFICULTY-1, o que faria nonce_1 at√© nonce_* >= DIFFICULTY)
+    // LÛgica: Verifica se SHA1(msg) correspondem ao esperado
+    // Ou se atingimos limite de dificuldade (nonce_0 >= DIFFICULTY-1, o que faria nonce_1 atÈ nonce_* >= DIFFICULTY)
     //        ************************************** MATCH **************************************
     if ((sha1_digest_0 == SHA1_EXPECTED) || 
         (sha1_digest_1 == SHA1_EXPECTED) || 
@@ -980,11 +978,11 @@ STATE_RESULT: begin
         (sha1_digest_6 == SHA1_EXPECTED) || 
         (sha1_digest_7 == SHA1_EXPECTED) || 
         (nonce_0 >= DIFFICULTY - 1)) begin
-            // ========== CORRESPOND√äNCIA ENCONTRADA OU DIFICULDADE ATINGIDA ==========
-            led_green_output <= 1'b1;   // LED: correspond√™ncia encontrada!
+            // ========== CORRESPOND NCIA ENCONTRADA OU DIFICULDADE ATINGIDA ==========
+            led_green_output <= 1'b1;   // LED: correspondÍncia encontrada!
             led_red_output <= 1'b0;     // Desativa indicador de trabalho
         
-         // ========== AGUARDAR TODOS OS 7 CORES PRONTOS ANTES DE RETORNAR √Ä IDLE ==========
+         // ========== AGUARDAR TODOS OS 7 CORES PRONTOS ANTES DE RETORNAR ¿ IDLE ==========
          if (sha1_core_0_ready && 
              sha1_core_1_ready && 
              sha1_core_2_ready && 
@@ -1005,7 +1003,7 @@ STATE_RESULT: begin
                 sha1_digest_6_valid <= 1'b0;
                 sha1_digest_7_valid <= 1'b0;
 
-                nonce_increment_done <= 1'b0;  // Reinicia flag para pr√≥ximo buffer de mensagem
+                nonce_increment_done <= 1'b0;  // Reinicia flag para prÛximo buffer de mensagem
         end else begin
             // Pisca LED enquanto aguarda cores ficarem prontos
             if (clock_counter >= 28'd5) begin
@@ -1016,10 +1014,10 @@ STATE_RESULT: begin
             end
         end
     end else begin
-        // ========== SEM CORRESPOND√äNCIA: INCREMENTA NONCE E TENTA NOVAMENTE ==========
+        // ========== SEM CORRESPOND NCIA: INCREMENTA NONCE E TENTA NOVAMENTE ==========
          led_red_output <= 1'b0;
          
-         // Sem correspond√™ncia: incrementa nonce_0 em +8 para pr√≥xima tentativa
+         // Sem correspondÍncia: incrementa nonce_0 em +8 para prÛxima tentativa
          // e recalcula SHA-1 para todos os 8 nonces
          if (sha1_core_0_ready &&
             sha1_core_1_ready && 
@@ -1029,17 +1027,17 @@ STATE_RESULT: begin
             sha1_core_5_ready && 
             sha1_core_6_ready && 
             sha1_core_7_ready) begin
-                 // Incrementa nonce_0 em +8 (para processar pr√≥ximas 8 nonces)
+                 // Incrementa nonce_0 em +8 (para processar prÛximas 8 nonces)
                  if (nonce_0 < DIFFICULTY - 1) begin
                     nonce_0 <= nonce_0 + 32'd8;
                 end else begin
-                    nonce_0 <= 32'd0;  // Reinicia para 0 ap√≥s atingir dificuldade m√°xima
+                    nonce_0 <= 32'd0;  // Reinicia para 0 apÛs atingir dificuldade m·xima
                 end
                 
-                state <= STATE_INIT_SHA1;  // Volta ao init para pr√≥xima itera√ß√£o
+                state <= STATE_INIT_SHA1;  // Volta ao init para prÛxima iteraÁ„o
                 clock_counter <= 28'd0;
 
-                sha1_digest_0_valid <= 1'b0;  // Limpa para pr√≥xima computa√ß√£o
+                sha1_digest_0_valid <= 1'b0;  // Limpa para prÛxima computaÁ„o
                 sha1_digest_1_valid <= 1'b0;  
                 sha1_digest_2_valid <= 1'b0;  
                 sha1_digest_3_valid <= 1'b0;  
@@ -1059,29 +1057,29 @@ default: begin
     endcase
 end
 
-// M√°quina de Estados de Recep√ß√£o e Transmiss√£o UART
+// M·quina de Estados de RecepÁ„o e Transmiss„o UART
 // ===================================================
 
-// Estados da m√°quina de estados UART
+// Estados da m·quina de estados UART
 localparam UART_IDLE         = 2'd0;  // Acumulando bytes no buffer
-localparam UART_BUFFER_FULL  = 2'd1;  // Buffer completo, pronto para computa√ß√£o SHA-1
+localparam UART_BUFFER_FULL  = 2'd1;  // Buffer completo, pronto para computaÁ„o SHA-1
 localparam UART_TRANSMIT_NONCE = 2'd2; // Transmitindo resultado de nonce (4 bytes = 32 bits)
-localparam UART_TX_DONE      = 2'd3;  // Transmiss√£o completa
+localparam UART_TX_DONE      = 2'd3;  // Transmiss„o completa
 
-// Registradores da m√°quina de estados UART
+// Registradores da m·quina de estados UART
 reg [1:0] uart_state;           // Estado atual
 
 // Sinais combinacionais para controle baseado em estado
-// Sinal: in√≠cio SHA-1 (ativado quando buffer UART est√° cheio)
-// Isso notifica a m√°quina de estados SHA-1 que nova mensagem est√° pronta
+// Sinal: inÌcio SHA-1 (ativado quando buffer UART est· cheio)
+// Isso notifica a m·quina de estados SHA-1 que nova mensagem est· pronta
 assign sha1_start = (uart_state == UART_BUFFER_FULL) ? 1'b1 : 1'b0;
 
-// Sinal: transmiss√£o UART completa (ativado quando transmiss√£o termina)
-// Notifica a m√°quina de estados SHA-1 para reiniciar nonce para pr√≥xima mensagem
+// Sinal: transmiss„o UART completa (ativado quando transmiss„o termina)
+// Notifica a m·quina de estados SHA-1 para reiniciar nonce para prÛxima mensagem
 assign uart_tx_done_signal = (uart_state == UART_TX_DONE) ? 1'b1 : 1'b0;
 
-reg [6:0] byte_count;           // Contador de recep√ß√£o: 0 a 80 (necessita 7 bits)
-reg [4:0] tx_index;             // √çndice de transmiss√£o: 0 a 3 para 4 bytes de nonce (necessita 5 bits)
+reg [6:0] byte_count;           // Contador de recepÁ„o: 0 a 80 (necessita 7 bits)
+reg [4:0] tx_index;             // Õndice de transmiss„o: 0 a 3 para 4 bytes de nonce (necessita 5 bits)
 
 // Registrador para armazenar qual nonce transmitir (nonce_0 ou nonce_1 ou nonce_2 ou nonce_3)
 reg [31:0] nonce_to_transmit = 32'd0;  // Inicializado para 0 - Armazena nonce a ser transmitido
@@ -1091,37 +1089,37 @@ reg rx_valid_reg1;
 reg rx_valid_reg2;
 wire rx_new_byte = rx_valid_reg1 && !rx_valid_reg2;
 
-// M√°quina de estados UART: manipula recep√ß√£o de mensagem e transmiss√£o de resultado
+// M·quina de estados UART: manipula recepÁ„o de mensagem e transmiss„o de resultado
 always @(posedge clk or negedge rst_n) begin
     if (!rst_n) begin
-         // Reinicia: inicializa todas as vari√°veis de estado UART
+         // Reinicia: inicializa todas as vari·veis de estado UART
          uart_state <= UART_IDLE;
-         byte_count <= 7'd0;  // Come√ßa em 0 (suporta at√© 80)
-         tx_index <= 5'd0;    // Come√ßa em 0 (transmite 4 bytes: √≠ndices 0-3)
+         byte_count <= 7'd0;  // ComeÁa em 0 (suporta atÈ 80)
+         tx_index <= 5'd0;    // ComeÁa em 0 (transmite 4 bytes: Ìndices 0-3)
          tx_data <= 8'd0;
          tx_data_valid <= 1'b0;
          rx_valid_reg1 <= 1'b0;
          rx_valid_reg2 <= 1'b0;
 
     end else begin
-        // Detec√ß√£o de borda de subida: captura chegada de novo byte UART
+        // DetecÁ„o de borda de subida: captura chegada de novo byte UART
         rx_valid_reg1 <= rx_data_valid;
         rx_valid_reg2 <= rx_valid_reg1;
 
-        // L√≥gica principal da m√°quina de estados UART
+        // LÛgica principal da m·quina de estados UART
         case (uart_state)
             //------------------------------------------
 UART_IDLE: begin
                 // Acumula bytes no buffer conforme chegam
-                // byte_count rastreia quantos bytes foram recebidos at√© agora (0 a 80)
-                tx_data_valid <= 1'b0;  // Ainda n√£o transmitindo
+                // byte_count rastreia quantos bytes foram recebidos atÈ agora (0 a 80)
+                tx_data_valid <= 1'b0;  // Ainda n„o transmitindo
 
                 // Novo byte chegou: armazena e incrementa contador
                 if (rx_new_byte && byte_count < BUFFER_SIZE) begin
-                    buffer[byte_count] <= rx_data;      // Armazena no √≠ndice atual
+                    buffer[byte_count] <= rx_data;      // Armazena no Ìndice atual
                     byte_count <= byte_count + 1'b1;    // Incrementa contador
                     
-                     // Transi√ß√£o quando √∫ltimo byte recebido (byte_count atinge 79, incrementar√° para 80)
+                     // TransiÁ„o quando ˙ltimo byte recebido (byte_count atinge 79, incrementar· para 80)
                      if (byte_count == BUFFER_SIZE - 1) begin
                          uart_state <= UART_BUFFER_FULL;
                      end
@@ -1131,12 +1129,12 @@ UART_IDLE: begin
              //------------------------------------------
 UART_BUFFER_FULL: begin
     // ========== AGUARDAR RESULTADO DE OCTA-CORE SHA-1 ==========
-    // Incremento de nonce_0 acontece na m√°quina de estados SHA-1 (STATE_IDLE e STATE_RESULT)
+    // Incremento de nonce_0 acontece na m·quina de estados SHA-1 (STATE_IDLE e STATE_RESULT)
     
-    // Quando resultado SHA-1 est√£o prontos, prepara transmiss√£o do nonce correto
+    // Quando resultado SHA-1 est„o prontos, prepara transmiss„o do nonce correto
     // Transmite nonce_0 se SHA1(msg) == SHA1_EXPECTED
     // ...
-    // Transmite nonce_0 at√© nonce_* se atingiu dificuldade m√°xima (>= DIFFICULTY-1)
+    // Transmite nonce_0 atÈ nonce_* se atingiu dificuldade m·xima (>= DIFFICULTY-1)
     
       if ((sha1_digest_0_valid && tx_data_ready && (sha1_digest_0 == SHA1_EXPECTED)) ||
           (sha1_digest_1_valid && tx_data_ready && (sha1_digest_1 == SHA1_EXPECTED)) ||
@@ -1153,56 +1151,56 @@ UART_BUFFER_FULL: begin
           // Seleciona o nonce E IMEDIATAMENTE armazena em nonce_to_transmit
           if (sha1_digest_7 == SHA1_EXPECTED) begin
               nonce_to_transmit <= nonce_7;  // Transmite nonce_7 
-              tx_data <= nonce_7[31:24];     // Byte 0 MSB - L√™ diretamente do nonce
+              tx_data <= nonce_7[31:24];     // Byte 0 MSB - LÍ diretamente do nonce
           end else 
           if (sha1_digest_6 == SHA1_EXPECTED) begin
               nonce_to_transmit <= nonce_6;  // Transmite nonce_6 
-              tx_data <= nonce_6[31:24];     // Byte 0 MSB - L√™ diretamente do nonce
+              tx_data <= nonce_6[31:24];     // Byte 0 MSB - LÍ diretamente do nonce
           end else 
           if (sha1_digest_5 == SHA1_EXPECTED) begin
               nonce_to_transmit <= nonce_5;  // Transmite nonce_5 
-              tx_data <= nonce_5[31:24];     // Byte 0 MSB - L√™ diretamente do nonce
+              tx_data <= nonce_5[31:24];     // Byte 0 MSB - LÍ diretamente do nonce
           end else 
           if (sha1_digest_4 == SHA1_EXPECTED) begin
               nonce_to_transmit <= nonce_4;  // Transmite nonce_4 
-              tx_data <= nonce_4[31:24];     // Byte 0 MSB - L√™ diretamente do nonce
+              tx_data <= nonce_4[31:24];     // Byte 0 MSB - LÍ diretamente do nonce
           end else 
           if (sha1_digest_3 == SHA1_EXPECTED) begin
               nonce_to_transmit <= nonce_3;  // Transmite nonce_3 
-              tx_data <= nonce_3[31:24];     // Byte 0 MSB - L√™ diretamente do nonce
+              tx_data <= nonce_3[31:24];     // Byte 0 MSB - LÍ diretamente do nonce
           end else 
           if (sha1_digest_2 == SHA1_EXPECTED) begin
               nonce_to_transmit <= nonce_2;  // Transmite nonce_2 
-              tx_data <= nonce_2[31:24];     // Byte 0 MSB - L√™ diretamente do nonce
+              tx_data <= nonce_2[31:24];     // Byte 0 MSB - LÍ diretamente do nonce
           end else 
           if (sha1_digest_1 == SHA1_EXPECTED) begin
               nonce_to_transmit <= nonce_1;  // Transmite nonce_1 
-              tx_data <= nonce_1[31:24];     // Byte 0 MSB - L√™ diretamente do nonce
+              tx_data <= nonce_1[31:24];     // Byte 0 MSB - LÍ diretamente do nonce
           end else begin
-              nonce_to_transmit <= nonce_0;  // Transmite nonce_0 por padr√£o
-              tx_data <= nonce_0[31:24];     // Byte 0 MSB - L√™ diretamente do nonce
+              nonce_to_transmit <= nonce_0;  // Transmite nonce_0 por padr„o
+              tx_data <= nonce_0[31:24];     // Byte 0 MSB - LÍ diretamente do nonce
           end
          
-         // Come√ßa transmiss√£o do resultado de nonce de 4 bytes
+         // ComeÁa transmiss„o do resultado de nonce de 4 bytes
          tx_data_valid <= 1'b1;
 
-         tx_index <= 5'd0;                     // Come√ßa no √≠ndice 0
-         uart_state <= UART_TRANSMIT_NONCE;    // Move para estado de transmiss√£o
+         tx_index <= 5'd0;                     // ComeÁa no Ìndice 0
+         uart_state <= UART_TRANSMIT_NONCE;    // Move para estado de transmiss„o
      end
 end
 
 UART_TRANSMIT_NONCE: begin
      // ========== TRANSMITIR 4 BYTES DO NONCE OCTA-CORE ==========
-     // Transmite nonce_to_transmit (que cont√©m nonce_0 at√© nonce_*)
-     // Ordem de transmiss√£o: MSB-primeiro (big-endian) [31:24], [23:16], [15:8], [7:0]
+     // Transmite nonce_to_transmit (que contÈm nonce_0 atÈ nonce_*)
+     // Ordem de transmiss„o: MSB-primeiro (big-endian) [31:24], [23:16], [15:8], [7:0]
      
      if (tx_data_ready) begin
           if (tx_index < 5'd3) begin
-              // Mais bytes de nonce para transmitir: prepara pr√≥ximo byte
-              // tx_index: 0?1?2?3 (4 transi√ß√µes para 4 bytes total)
+              // Mais bytes de nonce para transmitir: prepara prÛximo byte
+              // tx_index: 0?1?2?3 (4 transiÁıes para 4 bytes total)
               tx_index <= tx_index + 1'b1;
              
-             // Extrai pr√≥ximo byte do nonce_to_transmit usando (tx_index + 1)
+             // Extrai prÛximo byte do nonce_to_transmit usando (tx_index + 1)
              case(tx_index + 1'b1)
                  5'd1:  tx_data <= nonce_to_transmit[23:16];   // Byte 1
                  5'd2:  tx_data <= nonce_to_transmit[15:8];    // Byte 2
@@ -1212,7 +1210,7 @@ UART_TRANSMIT_NONCE: begin
              
              tx_data_valid <= 1'b1;
          end else begin
-             // Todos os 4 bytes de nonce (√≠ndices 0-3) transmitidos: finaliza
+             // Todos os 4 bytes de nonce (Ìndices 0-3) transmitidos: finaliza
              tx_data_valid <= 1'b0;
 
              uart_state <= UART_TX_DONE;
@@ -1222,11 +1220,11 @@ UART_TRANSMIT_NONCE: begin
 
              //------------------------------------------
 UART_TX_DONE: begin
-                  // Transmiss√£o completa: prepara para pr√≥xima mensagem
-                  // Reinicia byte_count para 0 para receber pr√≥ximo buffer de mensagem
+                  // Transmiss„o completa: prepara para prÛxima mensagem
+                  // Reinicia byte_count para 0 para receber prÛximo buffer de mensagem
                   byte_count <= 7'd0;
                   uart_state <= UART_IDLE;
-                  // Nota: m√°quina de estados SHA-1 reinicia nonce quando transmiss√£o UART completa
+                  // Nota: m·quina de estados SHA-1 reinicia nonce quando transmiss„o UART completa
                end
         endcase
     end
