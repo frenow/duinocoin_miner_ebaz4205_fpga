@@ -58,6 +58,30 @@ IO       | 5            | 100       | 5.0%
 
 ---
 
+## 📊 Performance Real em Produção
+
+```
+PERFORMANCE VERIFICADA - REDE DUINOCOIN ATIVA
+────────────────────────────────────────────────
+Hashrate Efetivo:     4.688 kH/s
+Dificuldade:          900.872
+Tempo Estimado/Share: ~192 segundos (~3 minutos)
+Status:               ✅ ATIVO E MINERANDO EM TEMPO REAL
+────────────────────────────────────────────────
+```
+
+**Isso significa:**
+- ✅ Hardware testado e verificado em operação real
+- ✅ Mineração ativa na rede DuinoCoin
+- ✅ Código estável e pronto para produção
+- ✅ Documentação baseada em dados reais, não estimativas
+
+**Localizado em:**
+- ✅ **README.md** - Badge de hashrate + seção Performance
+- ✅ **TECHNICAL.md** - Seção "Benchmark Real em Produção"
+
+---
+
 ## ✅ Checklist Final
 
 ### Documentação

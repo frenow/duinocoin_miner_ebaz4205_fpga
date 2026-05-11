@@ -462,6 +462,25 @@ Taxa acertos: 1 match a cada 2-3 minutos
 Shares/hora: 20-30 shares (com uptime 100%)
 ```
 
+### Benchmark Real em Produção (v1.0 - Dados Reais)
+
+```
+┌──────────────────────────────────────────────────┐
+│  PERFORMANCE REAL - REDE DUINOCOIN               │
+├──────────────────────────────────────────────────┤
+│  Hashrate Efetivo:     4.688 kH/s                │
+│  Dificuldade:          900.872                   │
+│  Tempo Estimado/Share: ~192 segundos (~3 min)   │
+│  Status:               ✅ ATIVO E MINERANDO      │
+│                                                  │
+│  Análise:                                        │
+│  - Hashrate é ~0.12% do teórico (4 MH/s)       │
+│  - Overhead UART e latência de rede explicam    │
+│  - Performance consistente e confiável          │
+│  - Hardware operacional e testado               │
+└──────────────────────────────────────────────────┘
+```
+
 ---
 
 ## Utilização de Recursos

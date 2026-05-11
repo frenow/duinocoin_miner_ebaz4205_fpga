@@ -145,6 +145,10 @@ Links de Referência:      15+
 - ✅ Análise de latência (timing)
 - ✅ Throughput teórico (4 MH/s)
 - ✅ Taxa realística (800 kH/s - 1.2 MH/s)
+- ✅ **Performance Real em Produção:**
+  - **Hashrate: 4.688 kH/s**
+  - **Dificuldade: 900.872**
+  - **Status: Ativo e minerando**
 - ✅ Fatores que afetam performance
 - ✅ Como medir real
 

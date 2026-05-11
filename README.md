@@ -4,8 +4,9 @@
 [![Verilog](https://img.shields.io/badge/Verilog-2001-orange.svg)](https://en.wikipedia.org/wiki/Verilog)
 [![Python](https://img.shields.io/badge/python-3.x-green.svg)](https://www.python.org/)
 [![Status](https://img.shields.io/badge/status-active-brightgreen.svg)](https://github.com)
+[![Hashrate](https://img.shields.io/badge/Hashrate-4.688%20kH%2Fs-yellowgreen.svg)](#performance)
 
-Um minerador de **DuinoCoin** de alto desempenho implementado em FPGA usando a placa **EBAZ 4205** com Zynq-7010. Implementa **8 cores SHA-1 em paralelo** para máxima eficiência criptográfica.
+Um minerador de **DuinoCoin** de alto desempenho implementado em FPGA usando a placa **EBAZ 4205** com Zynq-7010. Implementa **8 cores SHA-1 em paralelo** para máxima eficiência criptográfica. **Ativo e minerando** com hashrate real de **4.688 kH/s** em dificuldade **900.872**.
 
 ![EBAZ 4205 Board](ebaz4205.jpeg)
 
@@ -408,6 +409,19 @@ ebaz4205-duino-miner/
 ---
 
 ## 📊 Performance
+
+### Benchmarks em Produção (v1.0)
+
+```
+┌────────────────────────────────────────────────┐
+│  PERFORMANCE REAL - DUINOCOIN NETWORK          │
+├────────────────────────────────────────────────┤
+│  Hashrate Efetivo:  4.688 kH/s                │
+│  Dificuldade:       900.872                    │
+│  Tempo/Share:       ~192 segundos (estimado)  │
+│  Status:            ✅ ATIVO E MINERANDO       │
+└────────────────────────────────────────────────┘
+```
 
 ### Benchmarks Teóricos
 
