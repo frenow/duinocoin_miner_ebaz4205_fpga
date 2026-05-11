@@ -118,3 +118,14 @@ selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sourc
 // HOptionPane Warning: ''design_1_top_0_0.xci' IP is part of a block design. Please open the block design 'design_1.bd' and customize the IP. (Re-customize IP)'
 // 'B' command handler elapsed time: 3 seconds
 selectButton("PAResourceQtoS.RecustomizeCore_THIS_IP_PART_OF_BLOCK_DESIGN_OK", "OK"); // JButton (A, G)
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v), design_1_i : design_1 (design_1.bd), design_1 (design_1.v), top_0 : design_1_top_0_0 (Module Reference Wrapper), design_1_top_0_0 (design_1_top_0_0.v), inst : top (top.v)]", 7, true); // B (D, ck) - Node
+selectTree(PAResourceEtoH.FileSetPanel_FILE_SET_PANEL_TREE, "[root, Design Sources, design_1_wrapper (design_1_wrapper.v), design_1_i : design_1 (design_1.bd), design_1 (design_1.v), top_0 : design_1_top_0_0 (Module Reference Wrapper), design_1_top_0_0 (design_1_top_0_0.v), inst : top (top.v), bcd_inst_6 : nonce_bcd_simple (nonce_bcd_simple.v)]", 14, false, false, false, false, false, true); // B (D, ck) - Double Click
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// TclEventType: DG_GRAPH_GENERATED
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_GRAPH_STALE
+// TclEventType: FILE_SET_CHANGE
+// TclEventType: DG_ANALYSIS_MSG_RESET
+// HMemoryUtils.trashcanNow. Engine heap size: 706 MB. GUI used memory: 49 MB. Current time: 5/11/26 4:03:18 PM BRT

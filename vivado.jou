@@ -11,3 +11,4 @@
 #-----------------------------------------------------------
 start_gui
 open_project C:/Users/Emerson/Documents/fpga/project_ebaz_miner/project_ebaz_miner.xpr
+update_compile_order -fileset sources_1
