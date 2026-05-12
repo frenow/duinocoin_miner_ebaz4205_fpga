@@ -24,7 +24,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='C:/Users/Emerson/Documents/fpga/project_ebaz_miner/project_ebaz_miner.runs/impl_1'
+HD_PWD='C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.runs/impl_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
