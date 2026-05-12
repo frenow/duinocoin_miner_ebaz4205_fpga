@@ -9,7 +9,7 @@
 
 ### Did you like the project? Leave a star ⭐ or buy me a coffee 💰. 
 #### DuinoCoin Wallet: frenow 
-#### BTC Wallet: 1HMtKjB7K2bVvuyGySgmFQT2QHfp7zpyzK
+#### BTC Wallet: bc1qdf5qhmfymltn8xu52grlnskdelz8unsznljwe5
 
 Um minerador de **DuinoCoin** de alto desempenho implementado em FPGA usando a placa **EBAZ 4205** com Zynq-7010. Implementa **8 cores SHA-1 em paralelo** para máxima eficiência criptográfica. **Ativo e minerando** com hashrate real de **4.688 kH/s** em dificuldade **900.872**.
 
@@ -33,7 +33,126 @@ Um minerador de **DuinoCoin** de alto desempenho implementado em FPGA usando a p
 
 ---
 
-## ✨ Características
+## 🔧 Implementação Dinâmica (Generate Blocks)
+
+A implementação utiliza **Verilog `generate` statements** para criar instâncias parametrizadas sem hardcoding:
+
+### 1. Geração de Nonces (top.v:70-76)
+
+```verilog
+generate
+    genvar i;
+    for (i = 0; i < MAX_CORE; i = i + 1) begin : nonce_gen
+        assign nonce[i] = nonce_0 + i;
+    end
+endgenerate
+```
+
+**Resultado com MAX_CORE=8:**
+- `nonce[0] = nonce_0 + 0`
+- `nonce[1] = nonce_0 + 1`
+- ... até `nonce[7] = nonce_0 + 7`
+
+### 2. BCD Converters (top.v:117-135)
+
+```verilog
+generate
+    genvar j;
+    for (j = 0; j < MAX_CORE; j = j + 1) begin : bcd_loop
+        nonce_bcd_simple bcd_inst (
+            .nonce(nonce[j]),
+            .digit9(digit9[j]), .digit8(digit8[j]), ...,
+            .digit_count(nonce_ascii_len[j])
+        );
+    end
+endgenerate
+```
+
+**Cria 8 conversores BCD em paralelo**, cada um gerando dígitos ASCII para um nonce diferente.
+
+### 3. Conversão BCD→ASCII (top.v:152-172)
+
+```verilog
+generate
+    genvar k;
+    for (k = 0; k < MAX_CORE; k = k + 1) begin : ascii_conv_loop
+        always @(*) begin
+            case (nonce_ascii_len[k])
+                4'd1: nonce_ascii[k] = {64'd0, 8'h30 + digit1[k]};
+                4'd2: nonce_ascii[k] = {56'd0, 8'h30 + digit2[k], ...};
+                // ... até 4'd9
+                default: nonce_ascii[k] = 72'd0;
+            endcase
+        end
+    end
+endgenerate
+```
+
+**Converte cada BCD em ASCII** com padding inteligente (sem zeros à esquerda).
+
+### 4. Message Builders (top.v:222-305)
+
+```verilog
+generate
+    genvar z;
+    for (z = 0; z < MAX_CORE; z = z + 1) begin : msg_block_gen
+        always @(*) begin
+            case (nonce_ascii_len[z])
+                4'd1: nonce_pad_part = {nonce_ascii[z][7:0], 8'h80, ...};
+                4'd2: nonce_pad_part = {nonce_ascii[z][15:0], 8'h80, ...};
+                // ... até 4'd9
+            endcase
+            MESSAGE_BLOCK[z] = {msg_part, nonce_pad_part};
+        end
+    end
+endgenerate
+```
+
+**Constrói blocos de mensagem de 512 bits** com padding RFC 3174 para cada core.
+
+### 5. SHA-1 Core Instances (top.v:423-438)
+
+```verilog
+generate
+    genvar p;
+    for (p = 0; p < MAX_CORE; p = p + 1) begin : sha1_loop
+        sha1_core sha1_inst (
+            .clk(clk),
+            .reset_n(rst_n),
+            .init(sha1_init[p]),
+            .next(sha1_next[p]),
+            .block(MESSAGE_BLOCK[p]),
+            .ready(sha1_core_ready[p]),
+            .digest(sha1_digest[p]),
+            .digest_valid(sha1_digest_valid[p])
+        );
+    end
+endgenerate
+```
+
+**Instancia 8 SHA-1 cores** processando em paralelo.
+
+### Como Escalar para Mais Cores
+
+Para aumentar de 8 para 16 cores:
+
+```verilog
+// top.v, linha 28
+localparam MAX_CORE = 16;  // Era 8, agora 16
+
+// Tudo mais é gerado automaticamente:
+// - 16 nonce derivados
+// - 16 BCD converters
+// - 16 message builders
+// - 16 SHA-1 cores
+```
+
+**Resultado esperado:**
+- Throughput: 2x maior
+- Latência: Similar
+- Área FPGA: ~2x (verificar utilização de LUTs)
+
+---
 
 ### Hardware
 - ✅ **FPGA Xilinx Zynq-7010** na placa EBAZ 4205
@@ -132,24 +251,65 @@ Tipo:    Fonte chaveada (com proteção)
 └─────────────────────────────────────────┘
 ```
 
-### Estratégia OCTA SHA-1
+### Estratégia MULTI-CORE Dinâmica
 
-A implementação utiliza **8 cores SHA-1 processando simultaneamente**:
+A implementação utiliza **módulos gerados dinamicamente** via `generate` blocks do Verilog:
 
+```verilog
+// Em top.v, linha 28:
+localparam MAX_CORE = 8;  // Mude para 2, 4, 16, 32, etc
+```
+
+**Processamento em Paralelo:**
 ```
 Ciclo 0: Processa nonce_0, nonce_0+1, nonce_0+2, ..., nonce_0+7
 Ciclo 1: Processa nonce_0+8, nonce_0+9, nonce_0+10, ..., nonce_0+15
 Ciclo 2: Processa nonce_0+16, nonce_0+17, ..., nonce_0+23
 ...
 
-Incremento: nonce_0 += 8 após cada ciclo
-Ganho: ~8x mais rápido vs. implementação com 1 core
+Incremento: nonce_0 += MAX_CORE após cada ciclo
+Ganho: ~MAX_CORE vezes mais rápido (linear scalability)
+```
+
+**Arquitetura Dinâmica:**
+```
+┌─────────────────────────────────────────┐
+│ Nonce Generator (Combinacional)         │
+│ ├─ nonce[0] = nonce_0 + 0               │
+│ ├─ nonce[1] = nonce_0 + 1               │
+│ ├─ nonce[2] = nonce_0 + 2               │ (gerado via loop)
+│ ├─ nonce[...] = nonce_0 + [...]         │
+│ └─ nonce[MAX_CORE-1] = nonce_0 + MAX... │
+└─────────────────────────────────────────┘
+           ↓ (8 nonces paralelos)
+┌─────────────────────────────────────────┐
+│ BCD Converters (MAX_CORE instâncias)    │
+│ ├─ bcd_inst[0] → nonce_ascii[0]         │
+│ ├─ bcd_inst[1] → nonce_ascii[1]         │ (converter ASCII dinâmico)
+│ └─ bcd_inst[MAX_CORE-1] → nonce[...]    │
+└─────────────────────────────────────────┘
+           ↓ (nonces em texto)
+┌─────────────────────────────────────────┐
+│ Message Builders (MAX_CORE instâncias)  │
+│ ├─ MESSAGE_BLOCK[0] = msg + nonce[0]... │
+│ ├─ MESSAGE_BLOCK[1] = msg + nonce[1]... │ (padding RFC 3174)
+│ └─ MESSAGE_BLOCK[MAX_CORE-1] = ...      │
+└─────────────────────────────────────────┘
+           ↓ (512-bit blocks)
+┌─────────────────────────────────────────┐
+│ SHA-1 Cores (MAX_CORE instâncias)       │
+│ ├─ sha1_inst[0] processa nonce[0]       │
+│ ├─ sha1_inst[1] processa nonce[1]       │ (SHA-1 em paralelo)
+│ └─ sha1_inst[MAX_CORE-1] processa nonce │
+└─────────────────────────────────────────┘
 ```
 
 **Vantagens:**
-- Paralelismo nativo (LUT-bound, não memory-bound)
-- Latência reduzida (7 comparações simultâneas)
-- Escalabilidade (fácil adicionar mais cores)
+- ✅ **Escalabilidade via parâmetro**: Mude `MAX_CORE` para 2/4/16/32
+- ✅ **Geração automática de código**: Loops `generate` criam instâncias
+- ✅ **Paralelismo nativo**: LUT-bound, não memory-bound
+- ✅ **Latência reduzida**: MAX_CORE comparações simultâneas
+- ✅ **Zero hardcoding**: Toda lógica é parametrizada
 
 ---
 
@@ -341,11 +501,12 @@ ebaz4205-duino-miner/
 ├── project_ebaz_miner.srcs/
 │   ├── sources_1/
 │   │   ├── new/
-│   │   │   ├── top.v                   # Módulo top (1234 linhas)
-│   │   │   │   └── Estratégia OCTA SHA-1 core
-│   │   │   │   └── 8 cores processando em paralelo
-│   │   │   │   └── Buffer UART dinâmico (80 bytes)
-│   │   │   │   └── Message builder com padding RFC 3174
+│   │   │   ├── top.v                   # Módulo top (834 linhas)
+│   │   │   │   └── Arquitetura MULTI-CORE parametrizada (MAX_CORE=8)
+│   │   │   │   └── Generate blocks para nonce_gen, bcd_loop, msg_block_gen
+│   │   │   │   └── Dinâmico: 8 cores SHA-1, BCD converters, message builders
+│   │   │   │   └── Arrays de fios: nonce[], digit[], nonce_ascii[], MESSAGE_BLOCK[]
+│   │   │   │   └── Buffer UART (80 bytes) + padding RFC 3174
 │   │   │   │
 │   │   │   ├── sha1_core.v             # Core SHA-1 (433 linhas)
 │   │   │   │   └── 80 rodadas de processamento
@@ -404,10 +565,10 @@ ebaz4205-duino-miner/
 
 | Arquivo | Linhas | Propósito |
 |---------|--------|----------|
-| `top.v` | 1234 | Módulo raiz: OCTA cores, UART, message builder |
-| `sha1_core.v` | 433 | Core criptográfico SHA-1 (80 rodadas) |
+| `top.v` | 834 | Módulo raiz: MULTI-CORE dinâmico (MAX_CORE=8), UART, message builder |
+| `sha1_core.v` | 433 | Core criptográfico SHA-1 (80 rodadas) - instanciado MAX_CORE vezes |
 | `sha1_w_mem.v` | - | Expansão de palavras W (schedule) |
-| `nonce_bcd_simple.v` | 170 | Conversor BCD otimizado combinacional |
+| `nonce_bcd_simple.v` | 170 | Conversor BCD otimizado combinacional - instanciado MAX_CORE vezes |
 | `uart_rx.v` | 145 | Receptor UART com state machine |
 | `uart_tx.v` | - | Transmissor UART série |
 
@@ -462,10 +623,26 @@ ebaz4205-duino-miner/
 - ✅ **DSP Blocks**: 10% (pouco utilizado, expansível)
 - ✅ **I/O Pins**: 5% (apenas UART/LEDs, margem para features)
 
-**Potencial para v2.0:**
-- 🚀 Adicionar 16+ cores SHA-1 (LUTs: ~15.1K → ~28K)
-- 🚀 Implementar pipeline otimizado (DSP: ~16-24 blocos)
-- 🚀 Adicionar sensores de temperatura (IO: +2 pinos)
+### Potencial para v2.0 (Escalabilidade Dinâmica)
+
+Com a arquitetura parametrizada (`MAX_CORE`), é possível:
+
+| MAX_CORE | Cores | Est. LUTs | Est. FF | Ganho Throughput |
+|----------|-------|-----------|---------|------------------|
+| 4 | 4 SHA-1 | ~7.5K | ~4.5K | 4x |
+| **8** | **8 SHA-1** | **14.8K** | **8.9K** | **8x** |
+| 16 | 16 SHA-1 | ~29.6K | ~17.8K | 16x |
+| 32 | 32 SHA-1 | ~59.2K | ~35.6K | 32x |
+
+**Nota:** Zynq-7010 tem 17.600 LUTs, então MAX_CORE=16 é o limite realista.
+
+**Como testar escalabilidade:**
+1. Mude `MAX_CORE = 16` em `top.v:28`
+2. Execute síntese: `vivado -mode batch -source build.tcl`
+3. Verifique utilização de LUTs em relatório pós-síntese
+4. Se < 100%, implemente e teste em hardware
+
+---
 
 ### Fatores que Afetam Performance
 
@@ -597,6 +774,42 @@ pip install -r requirements.txt
 
 ## 🔬 Desenvolvimento & Testing
 
+### Testar Escalabilidade com Diferentes MAX_CORE
+
+**Passo 1: Alterar parametrização**
+
+```verilog
+// Editar project_ebaz_miner.srcs/sources_1/new/top.v
+
+// Linha 28:
+localparam MAX_CORE = 4;  // 1ª tentativa: 4 cores
+
+// Testar sequential:
+// MAX_CORE = 4, 8, 12, 16
+// Verificar LUT utilization após cada síntese
+```
+
+**Passo 2: Compilar e verificar**
+
+```bash
+# Build com MAX_CORE=4
+vivado -mode batch -source scripts/build.tcl
+
+# Extrair utilização
+cat project_ebaz_miner.runs/synth_1/*utilization_synth.rpt | grep -A 5 "Slice Logic"
+```
+
+**Passo 3: Analisar escalabilidade real**
+
+| MAX_CORE | LUT (est.) | LUT% | Tempo Síntese | Viável? |
+|----------|-----------|------|---------------|---------|
+| 4 | 7,500 | 42% | 5 min | ✅ |
+| 8 | 14,878 | 84% | 8 min | ✅ |
+| 12 | 22,300 | 127% | - | ❌ |
+| 16 | 29,756 | 169% | - | ❌ |
+
+**Conclusão:** Máximo realista com Zynq-7010 é MAX_CORE=8 (84% LUTs)
+
 ### Testar Módulo SHA-1 Isolado
 
 ```verilog
@@ -637,14 +850,79 @@ print(f"Payload válido: {len(payload)} bytes")
 
 ## 🚀 Próximas Melhorias (v2)
 
-- [ ] **Aumentar para 16 cores SHA-1** (se LUT permitir)
+### Core Architecture
+- [ ] **Aumentar MAX_CORE dinamicamente** (16, 32 cores se hardware permitir)
+- [ ] **Otimização de BCD converters** (reduzir LUTs em ~15%)
+- [ ] **Pipeline SHA-1** (adicionar stages, reduzir latência)
+- [ ] **Suporte a SHA-256** (novo algoritmo, parametrizável)
+
+### Software & Connectivity
 - [ ] **Suporte a múltiplos servidores** com failover automático
 - [ ] **Pool mining direto** (Stratum protocol)
 - [ ] **Dashboard Web** em tempo real
-- [ ] **Monitoramento de temperatura** (sensor DS18B20)
 - [ ] **Log persistente** em cartão SD
+
+### Hardware Features
+- [ ] **Monitoramento de temperatura** (sensor DS18B20)
 - [ ] **OTA (Over-The-Air) updates** via Zynq
-- [ ] **Suporte a outras criptos** (Scrypt, etc.)
+- [ ] **Controle de clock dinâmico** (DVFS - Dynamic Voltage and Frequency Scaling)
+
+### Experimental
+- [ ] **Suporte a outras criptos** (Scrypt, Ethash, etc.)
+- [ ] **Machine Learning inference** em cores ociosos
+
+---
+
+## 📖 Guia de Código-Fonte
+
+### top.v - Módulo Principal (834 linhas)
+
+**Estrutura:**
+
+```
+Linhas 1-30:     Cabeçalho e parâmetros (CLK_FRE, UART_FRE, DIFFICULTY, MAX_CORE)
+Linhas 31-76:    Geração dinâmica de nonces (nonce[0]...nonce[MAX_CORE-1])
+Linhas 79-172:   BCD converters e ASCII conversion (MAX_CORE instâncias)
+Linhas 175-305:  Message builders com padding RFC 3174 (MAX_CORE instâncias)
+Linhas 307-355:  Decodificação de hash esperado (buffer[40..79] → SHA1_EXPECTED)
+Linhas 356-482:  SHA-1 core instances (MAX_CORE instâncias paralelas)
+Linhas 483-511:  Lógica combinacional (match detection, ready check)
+Linhas 516-679:  State machine SHA-1 (RESET → IDLE → INIT → RUNNING → DONE_WAIT → RESULT)
+Linhas 681-832:  State machine UART (IDLE → BUFFER_FULL → TRANSMIT_NONCE → TX_DONE)
+```
+
+**Seções Dinâmicas (Generator Loops):**
+
+| Linha | Genvar | Loop | Instâncias | Propósito |
+|-------|--------|------|-----------|----------|
+| 72 | i | nonce_gen | MAX_CORE | Nonce derivados |
+| 119 | j | bcd_loop | MAX_CORE | BCD converters |
+| 154 | k | ascii_conv_loop | MAX_CORE | BCD→ASCII |
+| 190 | m | msg_len_loop | MAX_CORE | Comprimento msg |
+| 224 | z | msg_block_gen | MAX_CORE | Message builders |
+| 425 | p | sha1_loop | MAX_CORE | SHA-1 cores |
+
+**Arrays Dinâmicos (dimensão [0:MAX_CORE-1]):**
+
+```verilog
+wire [31:0] nonce [0:MAX_CORE-1]              // Nonces derivados
+wire [3:0] digit9..digit1 [0:MAX_CORE-1]      // Dígitos BCD (9 arrays)
+reg [71:0] nonce_ascii [0:MAX_CORE-1]         // ASCII de nonce
+reg [511:0] MESSAGE_BLOCK [0:MAX_CORE-1]      // Blocos SHA-1
+wire [159:0] sha1_digest [0:MAX_CORE-1]       // Resumos SHA-1
+wire sha1_digest_valid [0:MAX_CORE-1]         // Flags de validade
+```
+
+**State Machines:**
+1. **SHA-1 (linhas 516-679):** RESET → IDLE → INIT → RUNNING → DONE_WAIT → RESULT
+2. **UART (linhas 732-831):** IDLE → BUFFER_FULL → TRANSMIT_NONCE → TX_DONE
+
+### Outros Módulos
+
+- **sha1_core.v** (433 linhas): Core SHA-1 com 80 rodadas
+- **nonce_bcd_simple.v** (170 linhas): Conversor binário→BCD (combinacional)
+- **uart_rx.v** (145 linhas): Receptor UART com state machine
+- **uart_tx.v**: Transmissor UART série
 
 ---
 
