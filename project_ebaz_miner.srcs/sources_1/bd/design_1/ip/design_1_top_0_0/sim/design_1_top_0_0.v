@@ -77,7 +77,7 @@ output wire led_red;
   top #(
     .CLK_FRE(50),
     .UART_FRE(115200),
-    .DIFFICULTY(100000000)
+    .DIFFICULTY(99999999)
   ) inst (
     .clk(clk),
     .rst_n(rst_n),

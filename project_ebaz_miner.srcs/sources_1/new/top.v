@@ -19,7 +19,7 @@ module top(
 parameter CLK_FRE  = 50;    // Frequência do relógio em MHz
 parameter UART_FRE = 115200; // Taxa de bauds UART 115200
 
-parameter DIFFICULTY = 100000000; // Valor máximo de nonce para proof-of-work (100.000.000 iterações)
+parameter DIFFICULTY = 99999999; // Valor máximo de nonce para proof-of-work (100.000.000 iterações) -> 99.999.999
 
 // ========================================================================
 // CONSTANTE: Quantidade de cores (MAX_CORE define quantas vezes o modulo se repete)
@@ -44,7 +44,7 @@ localparam MAX_CORE = 8;  // 8 cores: nonce_0 a nonce_7 (MUDE AQUI para 2, 4, 16
 // Mensagem de entrada (dinâmica): 40 bytes recebidos via UART, armazenados em buffer[0..39]
 // Hash SHA-1 esperado: 40 caracteres ASCII hexadecimais recebidos via UART, armazenados em buffer[40..79]
 // Hash representa 20 bytes binários (160 bits) para comparação SHA-1
-reg [159:0] SHA1_EXPECTED;  // Hash SHA-1 esperado (160 bits = 20 bytes, decodificado de buffer[40..79])
+wire [159:0] SHA1_EXPECTED;  // Hash SHA-1 esperado (160 bits = 20 bytes, decodificado de buffer[40..79])
 
 // Variavel nonce MULT-core: 
 // - nonce_0: valor atual (registrador) - SEQUENCIAL
@@ -222,23 +222,7 @@ reg [191:0] nonce_pad_part;  // 24 bytes = 192 bits (resto do bloco)
 generate
     genvar z;
     for (z = 0; z < MAX_CORE; z = z + 1) begin : msg_block_gen
-        
         always @(*) begin : msg_block_builder
-            // Bytes 0-39: Mensagem fixa do buffer UART
-            reg [319:0] msg_part;  // 40 bytes = 320 bits
-            msg_part = {
-                buffer[0],  buffer[1],  buffer[2],  buffer[3],  
-                buffer[4],  buffer[5],  buffer[6],  buffer[7],
-                buffer[8],  buffer[9],  buffer[10], buffer[11], 
-                buffer[12], buffer[13], buffer[14], buffer[15],
-                buffer[16], buffer[17], buffer[18], buffer[19], 
-                buffer[20], buffer[21], buffer[22], buffer[23],
-                buffer[24], buffer[25], buffer[26], buffer[27], 
-                buffer[28], buffer[29], buffer[30], buffer[31],
-                buffer[32], buffer[33], buffer[34], buffer[35], 
-                buffer[36], buffer[37], buffer[38], buffer[39]
-            };
-            
             case (nonce_ascii_len[z])
                 4'd1: nonce_pad_part = {nonce_ascii[z][7:0],   
                                         8'h80, 
@@ -299,64 +283,40 @@ generate
             
             // Bloco de mensagem = 512 bits total
             // Posição do padding dinâmica: buffer[40] + nonce_ascii + 0x80 + zeros + comprimento(2 bytes)            
-            MESSAGE_BLOCK[z] = {msg_part, nonce_pad_part};
+            // Bytes 0-39: Mensagem fixa do buffer UART
+            MESSAGE_BLOCK[z] = {
+                buffer[0],  buffer[1],  buffer[2],  buffer[3],  
+                buffer[4],  buffer[5],  buffer[6],  buffer[7],
+                buffer[8],  buffer[9],  buffer[10], buffer[11], 
+                buffer[12], buffer[13], buffer[14], buffer[15],
+                buffer[16], buffer[17], buffer[18], buffer[19], 
+                buffer[20], buffer[21], buffer[22], buffer[23],
+                buffer[24], buffer[25], buffer[26], buffer[27], 
+                buffer[28], buffer[29], buffer[30], buffer[31],
+                buffer[32], buffer[33], buffer[34], buffer[35], 
+                buffer[36], buffer[37], buffer[38], buffer[39]
+                , nonce_pad_part};
         end
     end
 endgenerate
 
-always @(*) begin
-    // SHA1_EXPECTED: Decodifica 40 caracteres ASCII hexadecimais de buffer[40..79] em hash binário de 160 bits
-    // Conversão: cada par de caracteres ASCII hex [2n, 2n+1] torna-se um byte binário
-    // Exemplo: ASCII '48' -> 0x48, 'a3' -> 0xa3, etc. (suporta maiúsculas e minúsculas)
-    SHA1_EXPECTED = {
-        // Bytes 0-19: Decodifica pares hex de índices de buffer 40-79
-        (buffer[40] >= 8'h61 ? buffer[40] - 8'h57 : buffer[40] - 8'h30) << 4 | 
-        (buffer[41] >= 8'h61 ? buffer[41] - 8'h57 : buffer[41] - 8'h30),
-        (buffer[42] >= 8'h61 ? buffer[42] - 8'h57 : buffer[42] - 8'h30) << 4 | 
-        (buffer[43] >= 8'h61 ? buffer[43] - 8'h57 : buffer[43] - 8'h30),
-        (buffer[44] >= 8'h61 ? buffer[44] - 8'h57 : buffer[44] - 8'h30) << 4 | 
-        (buffer[45] >= 8'h61 ? buffer[45] - 8'h57 : buffer[45] - 8'h30),
-        (buffer[46] >= 8'h61 ? buffer[46] - 8'h57 : buffer[46] - 8'h30) << 4 | 
-        (buffer[47] >= 8'h61 ? buffer[47] - 8'h57 : buffer[47] - 8'h30),
-        (buffer[48] >= 8'h61 ? buffer[48] - 8'h57 : buffer[48] - 8'h30) << 4 | 
-        (buffer[49] >= 8'h61 ? buffer[49] - 8'h57 : buffer[49] - 8'h30),
-        (buffer[50] >= 8'h61 ? buffer[50] - 8'h57 : buffer[50] - 8'h30) << 4 | 
-        (buffer[51] >= 8'h61 ? buffer[51] - 8'h57 : buffer[51] - 8'h30),
-        (buffer[52] >= 8'h61 ? buffer[52] - 8'h57 : buffer[52] - 8'h30) << 4 | 
-        (buffer[53] >= 8'h61 ? buffer[53] - 8'h57 : buffer[53] - 8'h30),
-        (buffer[54] >= 8'h61 ? buffer[54] - 8'h57 : buffer[54] - 8'h30) << 4 | 
-        (buffer[55] >= 8'h61 ? buffer[55] - 8'h57 : buffer[55] - 8'h30),
-        (buffer[56] >= 8'h61 ? buffer[56] - 8'h57 : buffer[56] - 8'h30) << 4 | 
-        (buffer[57] >= 8'h61 ? buffer[57] - 8'h57 : buffer[57] - 8'h30),
-        (buffer[58] >= 8'h61 ? buffer[58] - 8'h57 : buffer[58] - 8'h30) << 4 | 
-        (buffer[59] >= 8'h61 ? buffer[59] - 8'h57 : buffer[59] - 8'h30),
-        (buffer[60] >= 8'h61 ? buffer[60] - 8'h57 : buffer[60] - 8'h30) << 4 | 
-        (buffer[61] >= 8'h61 ? buffer[61] - 8'h57 : buffer[61] - 8'h30),
-        (buffer[62] >= 8'h61 ? buffer[62] - 8'h57 : buffer[62] - 8'h30) << 4 | 
-        (buffer[63] >= 8'h61 ? buffer[63] - 8'h57 : buffer[63] - 8'h30),
-        (buffer[64] >= 8'h61 ? buffer[64] - 8'h57 : buffer[64] - 8'h30) << 4 | 
-        (buffer[65] >= 8'h61 ? buffer[65] - 8'h57 : buffer[65] - 8'h30),
-        (buffer[66] >= 8'h61 ? buffer[66] - 8'h57 : buffer[66] - 8'h30) << 4 | 
-        (buffer[67] >= 8'h61 ? buffer[67] - 8'h57 : buffer[67] - 8'h30),
-        (buffer[68] >= 8'h61 ? buffer[68] - 8'h57 : buffer[68] - 8'h30) << 4 | 
-        (buffer[69] >= 8'h61 ? buffer[69] - 8'h57 : buffer[69] - 8'h30),
-        (buffer[70] >= 8'h61 ? buffer[70] - 8'h57 : buffer[70] - 8'h30) << 4 | 
-        (buffer[71] >= 8'h61 ? buffer[71] - 8'h57 : buffer[71] - 8'h30),
-        (buffer[72] >= 8'h61 ? buffer[72] - 8'h57 : buffer[72] - 8'h30) << 4 | 
-        (buffer[73] >= 8'h61 ? buffer[73] - 8'h57 : buffer[73] - 8'h30),
-        (buffer[74] >= 8'h61 ? buffer[74] - 8'h57 : buffer[74] - 8'h30) << 4 | 
-        (buffer[75] >= 8'h61 ? buffer[75] - 8'h57 : buffer[75] - 8'h30),
-        (buffer[76] >= 8'h61 ? buffer[76] - 8'h57 : buffer[76] - 8'h30) << 4 | 
-        (buffer[77] >= 8'h61 ? buffer[77] - 8'h57 : buffer[77] - 8'h30),
-        (buffer[78] >= 8'h61 ? buffer[78] - 8'h57 : buffer[78] - 8'h30) << 4 | 
-        (buffer[79] >= 8'h61 ? buffer[79] - 8'h57 : buffer[79] - 8'h30)
-    };
-    
-end
-
-// Sinais de computação SHA-1 (MULT-CORE)
-reg [27:0] clock_counter;     // Contador de temporização da máquina de estados
-reg nonce_increment_done;     // flag: garante que nonce incrementa exatamente uma vez por buffer
+// SHA1_EXPECTED: Decodifica 40 caracteres ASCII hexadecimais de buffer[40..79] em hash binario de 160 bits
+// Converscao: cada par de caracteres ASCII hex [2n, 2n+1] torna-se um byte binario
+// Exemplo: ASCII '48' -> 0x48, 'a3' -> 0xa3, etc. (suporta maiusculas e minusculas)
+generate
+    genvar x;
+    for (x = 0; x < 20; x = x + 1) begin : hex_decode
+        wire [3:0] high = (buffer[40 + x*2] >= 8'h61) ? (buffer[40 + x*2] - 8'h57) :
+                          (buffer[40 + x*2] >= 8'h41) ? (buffer[40 + x*2] - 8'h37) :
+                          (buffer[40 + x*2] - 8'h30);
+        
+        wire [3:0] low = (buffer[40 + x*2 + 1] >= 8'h61) ? (buffer[40 + x*2 + 1] - 8'h57) :
+                         (buffer[40 + x*2 + 1] >= 8'h41) ? (buffer[40 + x*2 + 1] - 8'h37) :
+                         (buffer[40 + x*2 + 1] - 8'h30);
+        
+        assign SHA1_EXPECTED[(19-x)*8 +: 8] = {high, low};
+    end
+endgenerate
 
 // ========================================================================
 // SHA-1 CORES DINAMICOS: Instancia MAX_CORE modulos sha1_core
@@ -379,8 +339,6 @@ wire uart_tx_done_signal;         // Sinal de conclusão: ativado quando transmis
 
 reg led_red_output;              // Saída LED: status de correspondência SHA-1
 reg led_green_output;           // Saída LED: status de correspondência SHA-1
-
-reg [27:0] blink_counter;    // Contador de pisca para LED
 
 // Máquina de estados SHA-1: implementa proof-of-work com iteração de nonce
 // Estados: RESET ? IDLE ? INIT_SHA1 ? RUNNING ? DONE_WAIT ? RESULT
@@ -529,16 +487,9 @@ STATE_RESET: begin
     led_red_output   <= 1'b0;
     led_green_output <= 1'b0;
 
-    clock_counter <= 28'd0;
     nonce_0 <= 32'd0;  // Reinicia nonce_0 para 0 na inicialização
 
-    // Aguarda 5 ciclos de relógio para estabilização do sistema
-    if (clock_counter >= 28'd5) begin
-        clock_counter <= 28'd0;
-        state <= STATE_IDLE;
-    end else begin
-        clock_counter <= clock_counter + 1'b1;
-    end
+    state <= STATE_IDLE;
 end
 
 STATE_IDLE: begin
@@ -548,24 +499,10 @@ STATE_IDLE: begin
         nonce_0 <= 32'd0;
     end
     
-    // ========== Incrementar NONCE_0 (ESTRAT?GIA MULT-CORE) ==========
-    // Primeiro incremento: disparado por sha1_start e flag nonce_increment_done
-    // Garante que nonce_0 Incrementa exatamente uma vez por buffer de mensagem
-    // Incrementa de +n para processar nonce_0 ate nonce_n em paralelo
-    if (sha1_start && !nonce_increment_done) begin
-        if (nonce_0 < DIFFICULTY - MAX_CORE) begin
-            nonce_0 <= nonce_0 + MAX_CORE;  // Incrementa por MAX_CORE
-        end else begin
-            nonce_0 <= 32'd0;
-        end
-        nonce_increment_done <= 1'b1;
-    end
-    
     // ========== TRANSICAO PARA INIT_SHA1 ==========
-    // Condicao: TODOS n cores prontos AND buffer cheio AND nonce j? Incrementado
-    if (all_cores_ready_combined && sha1_start && nonce_increment_done) begin
+    // Condicao: TODOS n cores prontos AND buffer cheio
+    if (all_cores_ready_combined && sha1_start) begin
         state <= STATE_INIT_SHA1;
-        clock_counter <= 28'd0;
     end
 end
 
@@ -584,17 +521,10 @@ STATE_INIT_SHA1: begin
     end
     
     state <= STATE_RUNNING;
-    clock_counter <= 28'd0;
 end
 
 STATE_RUNNING: begin
-             // Aguarda conclusão do núcleo SHA-1 contador atinge ~185 ns, mas SHA-1 normalmente completa neste intervalo
-             if (clock_counter >= 28'd5) begin
-                 state <= STATE_DONE_WAIT;
-                 clock_counter <= 28'd0;
-             end else begin
-                 clock_counter <= clock_counter + 1'b1;
-             end
+             state <= STATE_DONE_WAIT;
          end
 
 STATE_DONE_WAIT: begin
@@ -610,7 +540,6 @@ STATE_DONE_WAIT: begin
             sha1_digest_valid_reg[c] <= 1'b1;
         end
     
-        clock_counter <= 28'd0;
         state <= STATE_RESULT;
     end
 end
@@ -628,22 +557,15 @@ if (match_found || (nonce_0 >= DIFFICULTY - MAX_CORE)) begin
     // ========== AGUARDAR TODOS OS CORES PRONTOS ANTES DE RETORNAR A IDLE ==========
     if (all_cores_ready_combined) begin
         state <= STATE_IDLE;
-        clock_counter <= 28'd0;
         
         // Limpa flags de validade para proximo ciclo
         for (e = 0; e < MAX_CORE; e = e + 1) begin
             sha1_digest_valid_reg[e] <= 1'b0;
         end
 
-        nonce_increment_done <= 1'b0;  // Reinicia flag para proximo buffer de mensagem
     end else begin
         // Pisca LED enquanto aguarda cores ficarem prontos
-        if (clock_counter >= 28'd5) begin
-            clock_counter <= 28'd0;
-            led_green_output <= ~led_green_output;  // Alterna LED
-        end else begin
-            clock_counter <= clock_counter + 1'b1;
-        end
+        led_green_output <= ~led_green_output;  // Alterna LED
     end
 end else begin
     // ========== SEM correspondencia: Incrementa NONCE E TENTA NOVAMENTE ==========
@@ -660,7 +582,6 @@ end else begin
         end
         
         state <= STATE_INIT_SHA1;  // Volta ao init para proxima iteracao
-        clock_counter <= 28'd0;
 
         // Limpa flags de validade para proxima computa
         for (f = 0; f < MAX_CORE; f = f + 1) begin
@@ -703,7 +624,6 @@ reg [6:0] byte_count;           // Contador de recepção: 0 a 80 (necessita 7 bit
 reg [4:0] tx_index;             // Índice de transmissão: 0 a 3 para 4 bytes de nonce (necessita 5 bits)
 
 // Registrador para armazenar qual nonce transmitir (nonce_0 ou nonce_1 ou nonce_2 ou nonce_3)
-reg [31:0] nonce_to_transmit = 32'd0;  // Inicializado para 0 - Armazena nonce a ser transmitido
 reg [7:0] match_index_reg = 8'd0;      // Registrador para armazenar indice do nonce que corresponde
 integer idx_match;                      // Indice para pesquisa de correspondencia
 
@@ -781,7 +701,6 @@ UART_BUFFER_FULL: begin
         // Transmite o nonce do core que encontrou correspondencia
         
         // Armazena o nonce que corresponde (nonce_0 + match_index_reg)
-        nonce_to_transmit <= nonce[match_index_reg];
         tx_data <= nonce[match_index_reg][31:24];  // Byte 0 MSB - LSB primeiro na transmissao
         
         // Comeca transmissao do resultado de nonce de 4 bytes
@@ -793,7 +712,7 @@ end
 
 UART_TRANSMIT_NONCE: begin
      // ========== TRANSMITIR 4 BYTES DO NONCE MULT-CORE ==========
-     // Transmite nonce_to_transmit (que contém nonce_0 até nonce_6)
+     // Transmite nonce_to_transmit (que contém nonce_0 até nonce_n)
      // Ordem de transmissão: MSB-primeiro (big-endian) [31:24], [23:16], [15:8], [7:0]
      
      if (tx_data_ready) begin
@@ -804,9 +723,9 @@ UART_TRANSMIT_NONCE: begin
              
              // Extrai próximo byte do nonce_to_transmit usando (tx_index + 1)
              case(tx_index + 1'b1)
-                 5'd1:  tx_data <= nonce_to_transmit[23:16];   // Byte 1
-                 5'd2:  tx_data <= nonce_to_transmit[15:8];    // Byte 2
-                 5'd3:  tx_data <= nonce_to_transmit[7:0];     // Byte 3 (LSB)
+                 5'd1:  tx_data <= nonce[match_index_reg][23:16];   // Byte 1
+                 5'd2:  tx_data <= nonce[match_index_reg][15:8];    // Byte 2
+                 5'd3:  tx_data <= nonce[match_index_reg][7:0];     // Byte 3 (LSB)
                  default: tx_data <= 8'd0;
              endcase
              

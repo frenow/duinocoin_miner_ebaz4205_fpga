@@ -52,7 +52,7 @@
 
 (* X_CORE_INFO = "top,Vivado 2018.2" *)
 (* CHECK_LICENSE_TYPE = "design_1_top_0_0,top,{}" *)
-(* CORE_GENERATION_INFO = "design_1_top_0_0,top,{x_ipProduct=Vivado 2018.2,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=top,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,CLK_FRE=50,UART_FRE=115200,DIFFICULTY=100000000}" *)
+(* CORE_GENERATION_INFO = "design_1_top_0_0,top,{x_ipProduct=Vivado 2018.2,x_ipVendor=xilinx.com,x_ipLibrary=module_ref,x_ipName=top,x_ipVersion=1.0,x_ipCoreRevision=1,x_ipLanguage=VERILOG,x_ipSimLanguage=MIXED,CLK_FRE=50,UART_FRE=115200,DIFFICULTY=99999999}" *)
 (* IP_DEFINITION_SOURCE = "module_ref" *)
 (* DowngradeIPIdentifiedWarnings = "yes" *)
 module design_1_top_0_0 (
@@ -78,7 +78,7 @@ output wire led_red;
   top #(
     .CLK_FRE(50),
     .UART_FRE(115200),
-    .DIFFICULTY(100000000)
+    .DIFFICULTY(99999999)
   ) inst (
     .clk(clk),
     .rst_n(rst_n),

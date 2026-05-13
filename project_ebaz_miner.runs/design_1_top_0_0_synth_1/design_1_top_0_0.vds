@@ -2,8 +2,8 @@
 # Vivado v2018.2 (64-bit)
 # SW Build 2258646 on Thu Jun 14 20:03:12 MDT 2018
 # IP Build 2256618 on Thu Jun 14 22:10:49 MDT 2018
-# Start of session at: Tue May 12 17:12:13 2026
-# Process ID: 11144
+# Start of session at: Wed May 13 16:52:53 2026
+# Process ID: 13888
 # Current directory: C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.runs/design_1_top_0_0_synth_1
 # Command line: vivado.exe -log design_1_top_0_0.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source design_1_top_0_0.tcl
 # Log file: C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.runs/design_1_top_0_0_synth_1/design_1_top_0_0.vds
@@ -15,15 +15,15 @@ Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7z010'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7z010'
 INFO: Launching helper process for spawning children vivado processes
-INFO: Helper process launched with PID 2552 
+INFO: Helper process launched with PID 16620 
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:01 ; elapsed = 00:00:02 . Memory (MB): peak = 411.711 ; gain = 103.484
+Starting RTL Elaboration : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 411.770 ; gain = 103.730
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'design_1_top_0_0' [c:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/bd/design_1/ip/design_1_top_0_0/synth/design_1_top_0_0.v:58]
 INFO: [Synth 8-6157] synthesizing module 'top' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:10]
 	Parameter CLK_FRE bound to: 50 - type: integer 
 	Parameter UART_FRE bound to: 115200 - type: integer 
-	Parameter DIFFICULTY bound to: 100000000 - type: integer 
+	Parameter DIFFICULTY bound to: 99999999 - type: integer 
 	Parameter MAX_CORE bound to: 8 - type: integer 
 	Parameter BUFFER_SIZE bound to: 80 - type: integer 
 	Parameter STATE_RESET bound to: 3'b000 
@@ -71,127 +71,126 @@ INFO: [Synth 8-6157] synthesizing module 'uart_tx' [C:/Users/Emerson/Documents/f
 	Parameter S_SEND_BYTE bound to: 3 - type: integer 
 	Parameter S_STOP bound to: 4 - type: integer 
 INFO: [Synth 8-6155] done synthesizing module 'uart_tx' (5#1) [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/uart_tx.v:3]
-WARNING: [Synth 8-6014] Unused sequential element sha1_digest_valid_reg_reg[0] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:610]
-WARNING: [Synth 8-6014] Unused sequential element sha1_digest_valid_reg_reg[1] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:610]
-WARNING: [Synth 8-6014] Unused sequential element sha1_digest_valid_reg_reg[2] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:610]
-WARNING: [Synth 8-6014] Unused sequential element sha1_digest_valid_reg_reg[3] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:610]
-WARNING: [Synth 8-6014] Unused sequential element sha1_digest_valid_reg_reg[4] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:610]
-WARNING: [Synth 8-6014] Unused sequential element sha1_digest_valid_reg_reg[5] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:610]
-WARNING: [Synth 8-6014] Unused sequential element sha1_digest_valid_reg_reg[6] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:610]
-WARNING: [Synth 8-6014] Unused sequential element sha1_digest_valid_reg_reg[7] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:610]
-INFO: [Synth 8-4471] merging register 'sha1_next_reg[1]' into 'sha1_next_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:431]
-INFO: [Synth 8-4471] merging register 'sha1_next_reg[2]' into 'sha1_next_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:431]
-INFO: [Synth 8-4471] merging register 'sha1_next_reg[3]' into 'sha1_next_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:431]
-INFO: [Synth 8-4471] merging register 'sha1_next_reg[4]' into 'sha1_next_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:431]
-INFO: [Synth 8-4471] merging register 'sha1_next_reg[5]' into 'sha1_next_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:431]
-INFO: [Synth 8-4471] merging register 'sha1_next_reg[6]' into 'sha1_next_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:431]
-INFO: [Synth 8-4471] merging register 'sha1_next_reg[7]' into 'sha1_next_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:431]
-WARNING: [Synth 8-6014] Unused sequential element sha1_next_reg[1] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:431]
-WARNING: [Synth 8-6014] Unused sequential element sha1_next_reg[2] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:431]
-WARNING: [Synth 8-6014] Unused sequential element sha1_next_reg[3] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:431]
-WARNING: [Synth 8-6014] Unused sequential element sha1_next_reg[4] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:431]
-WARNING: [Synth 8-6014] Unused sequential element sha1_next_reg[5] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:431]
-WARNING: [Synth 8-6014] Unused sequential element sha1_next_reg[6] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:431]
-WARNING: [Synth 8-6014] Unused sequential element sha1_next_reg[7] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:431]
-INFO: [Synth 8-4471] merging register 'sha1_init_reg[1]' into 'sha1_init_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:430]
-INFO: [Synth 8-4471] merging register 'sha1_init_reg[2]' into 'sha1_init_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:430]
-INFO: [Synth 8-4471] merging register 'sha1_init_reg[3]' into 'sha1_init_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:430]
-INFO: [Synth 8-4471] merging register 'sha1_init_reg[4]' into 'sha1_init_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:430]
-INFO: [Synth 8-4471] merging register 'sha1_init_reg[5]' into 'sha1_init_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:430]
-INFO: [Synth 8-4471] merging register 'sha1_init_reg[6]' into 'sha1_init_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:430]
-INFO: [Synth 8-4471] merging register 'sha1_init_reg[7]' into 'sha1_init_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:430]
-WARNING: [Synth 8-6014] Unused sequential element sha1_init_reg[1] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:430]
-WARNING: [Synth 8-6014] Unused sequential element sha1_init_reg[2] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:430]
-WARNING: [Synth 8-6014] Unused sequential element sha1_init_reg[3] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:430]
-WARNING: [Synth 8-6014] Unused sequential element sha1_init_reg[4] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:430]
-WARNING: [Synth 8-6014] Unused sequential element sha1_init_reg[5] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:430]
-WARNING: [Synth 8-6014] Unused sequential element sha1_init_reg[6] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:430]
-WARNING: [Synth 8-6014] Unused sequential element sha1_init_reg[7] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:430]
-WARNING: [Synth 8-5788] Register buffer_reg[0] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[1] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[2] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[3] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[4] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[5] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[6] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[7] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[8] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[9] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[10] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[11] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[12] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[13] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[14] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[15] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[16] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[17] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[18] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[19] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[20] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[21] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[22] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[23] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[24] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[25] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[26] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[27] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[28] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[29] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[30] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[31] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[32] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[33] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[34] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[35] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[36] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[37] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[38] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[39] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[40] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[41] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[42] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[43] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[44] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[45] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[46] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[47] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[48] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[49] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[50] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[51] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[52] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[53] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[54] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[55] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[56] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[57] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[58] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[59] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[60] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[61] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[62] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[63] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[64] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[65] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[66] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[67] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[68] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[69] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[70] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[71] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[72] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[73] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[74] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[75] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[76] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[77] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[78] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register buffer_reg[79] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:758]
-WARNING: [Synth 8-5788] Register nonce_to_transmit_reg in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:784]
+WARNING: [Synth 8-6014] Unused sequential element sha1_digest_valid_reg_reg[0] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:540]
+WARNING: [Synth 8-6014] Unused sequential element sha1_digest_valid_reg_reg[1] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:540]
+WARNING: [Synth 8-6014] Unused sequential element sha1_digest_valid_reg_reg[2] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:540]
+WARNING: [Synth 8-6014] Unused sequential element sha1_digest_valid_reg_reg[3] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:540]
+WARNING: [Synth 8-6014] Unused sequential element sha1_digest_valid_reg_reg[4] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:540]
+WARNING: [Synth 8-6014] Unused sequential element sha1_digest_valid_reg_reg[5] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:540]
+WARNING: [Synth 8-6014] Unused sequential element sha1_digest_valid_reg_reg[6] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:540]
+WARNING: [Synth 8-6014] Unused sequential element sha1_digest_valid_reg_reg[7] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:540]
+INFO: [Synth 8-4471] merging register 'sha1_next_reg[1]' into 'sha1_next_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:389]
+INFO: [Synth 8-4471] merging register 'sha1_next_reg[2]' into 'sha1_next_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:389]
+INFO: [Synth 8-4471] merging register 'sha1_next_reg[3]' into 'sha1_next_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:389]
+INFO: [Synth 8-4471] merging register 'sha1_next_reg[4]' into 'sha1_next_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:389]
+INFO: [Synth 8-4471] merging register 'sha1_next_reg[5]' into 'sha1_next_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:389]
+INFO: [Synth 8-4471] merging register 'sha1_next_reg[6]' into 'sha1_next_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:389]
+INFO: [Synth 8-4471] merging register 'sha1_next_reg[7]' into 'sha1_next_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:389]
+WARNING: [Synth 8-6014] Unused sequential element sha1_next_reg[1] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:389]
+WARNING: [Synth 8-6014] Unused sequential element sha1_next_reg[2] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:389]
+WARNING: [Synth 8-6014] Unused sequential element sha1_next_reg[3] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:389]
+WARNING: [Synth 8-6014] Unused sequential element sha1_next_reg[4] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:389]
+WARNING: [Synth 8-6014] Unused sequential element sha1_next_reg[5] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:389]
+WARNING: [Synth 8-6014] Unused sequential element sha1_next_reg[6] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:389]
+WARNING: [Synth 8-6014] Unused sequential element sha1_next_reg[7] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:389]
+INFO: [Synth 8-4471] merging register 'sha1_init_reg[1]' into 'sha1_init_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:388]
+INFO: [Synth 8-4471] merging register 'sha1_init_reg[2]' into 'sha1_init_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:388]
+INFO: [Synth 8-4471] merging register 'sha1_init_reg[3]' into 'sha1_init_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:388]
+INFO: [Synth 8-4471] merging register 'sha1_init_reg[4]' into 'sha1_init_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:388]
+INFO: [Synth 8-4471] merging register 'sha1_init_reg[5]' into 'sha1_init_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:388]
+INFO: [Synth 8-4471] merging register 'sha1_init_reg[6]' into 'sha1_init_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:388]
+INFO: [Synth 8-4471] merging register 'sha1_init_reg[7]' into 'sha1_init_reg[0]' [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:388]
+WARNING: [Synth 8-6014] Unused sequential element sha1_init_reg[1] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:388]
+WARNING: [Synth 8-6014] Unused sequential element sha1_init_reg[2] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:388]
+WARNING: [Synth 8-6014] Unused sequential element sha1_init_reg[3] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:388]
+WARNING: [Synth 8-6014] Unused sequential element sha1_init_reg[4] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:388]
+WARNING: [Synth 8-6014] Unused sequential element sha1_init_reg[5] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:388]
+WARNING: [Synth 8-6014] Unused sequential element sha1_init_reg[6] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:388]
+WARNING: [Synth 8-6014] Unused sequential element sha1_init_reg[7] was removed.  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:388]
+WARNING: [Synth 8-5788] Register buffer_reg[0] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[1] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[2] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[3] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[4] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[5] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[6] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[7] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[8] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[9] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[10] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[11] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[12] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[13] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[14] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[15] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[16] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[17] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[18] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[19] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[20] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[21] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[22] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[23] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[24] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[25] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[26] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[27] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[28] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[29] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[30] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[31] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[32] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[33] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[34] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[35] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[36] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[37] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[38] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[39] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[40] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[41] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[42] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[43] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[44] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[45] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[46] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[47] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[48] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[49] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[50] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[51] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[52] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[53] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[54] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[55] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[56] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[57] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[58] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[59] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[60] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[61] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[62] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[63] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[64] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[65] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[66] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[67] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[68] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[69] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[70] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[71] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[72] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[73] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[74] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[75] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[76] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[77] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[78] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
+WARNING: [Synth 8-5788] Register buffer_reg[79] in module top is has both Set and reset with same priority. This may cause simulation mismatches. Consider rewriting code  [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:309]
 INFO: [Synth 8-6155] done synthesizing module 'top' (6#1) [C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/new/top.v:10]
 INFO: [Synth 8-6155] done synthesizing module 'design_1_top_0_0' (7#1) [c:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.srcs/sources_1/bd/design_1/ip/design_1_top_0_0/synth/design_1_top_0_0.v:58]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 486.625 ; gain = 178.398
+Finished RTL Elaboration : Time (s): cpu = 00:00:05 ; elapsed = 00:00:05 . Memory (MB): peak = 485.438 ; gain = 177.398
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -204,10 +203,10 @@ Report Check Netlist:
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 486.625 ; gain = 178.398
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 485.438 ; gain = 177.398
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:02 ; elapsed = 00:00:03 . Memory (MB): peak = 486.625 ; gain = 178.398
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 485.438 ; gain = 177.398
 ---------------------------------------------------------------------------------
 INFO: [Device 21-403] Loading part xc7z010clg400-1
 INFO: [Project 1-570] Preparing netlist for logic optimization
@@ -220,22 +219,22 @@ INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
 WARNING: [Constraints 18-5210] No constraint will be written out.
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.172 . Memory (MB): peak = 859.758 ; gain = 5.809
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.339 . Memory (MB): peak = 858.609 ; gain = 6.168
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 859.758 ; gain = 551.531
+Finished Constraint Validation : Time (s): cpu = 00:00:22 ; elapsed = 00:00:24 . Memory (MB): peak = 858.609 ; gain = 550.570
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7z010clg400-1
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 859.758 ; gain = 551.531
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:22 ; elapsed = 00:00:24 . Memory (MB): peak = 858.609 ; gain = 550.570
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:11 ; elapsed = 00:00:12 . Memory (MB): peak = 859.758 ; gain = 551.531
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:22 ; elapsed = 00:00:24 . Memory (MB): peak = 858.609 ; gain = 550.570
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-802] inferred FSM for state register 'state_reg' in module 'uart_rx'
 INFO: [Synth 8-5546] ROM "bit_cnt" won't be mapped to RAM because it is too sparse
@@ -359,8 +358,8 @@ INFO: [Synth 8-5546] ROM "buffer_reg[79]" won't be mapped to RAM because it is t
 INFO: [Synth 8-5544] ROM "sha1_init" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "led_red_output" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "state" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "sha1_start" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "uart_tx_done_signal" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "sha1_start" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
 INFO: [Synth 8-5546] ROM "buffer_reg[0]" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5546] ROM "buffer_reg[1]" won't be mapped to RAM because it is too sparse
 INFO: [Synth 8-5546] ROM "buffer_reg[2]" won't be mapped to RAM because it is too sparse
@@ -371,8 +370,8 @@ INFO: [Common 17-14] Message 'Synth 8-5546' appears 100 times and further instan
 INFO: [Synth 8-5544] ROM "sha1_init" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "led_red_output" won't be mapped to Block RAM because address size (3) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "state" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
-INFO: [Synth 8-5544] ROM "sha1_start" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
 INFO: [Synth 8-5544] ROM "uart_tx_done_signal" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
+INFO: [Synth 8-5544] ROM "sha1_start" won't be mapped to Block RAM because address size (2) smaller than threshold (5)
 ---------------------------------------------------------------------------------------------------
                    State |                     New Encoding |                Previous Encoding 
 ---------------------------------------------------------------------------------------------------
@@ -421,17 +420,16 @@ INFO: [Synth 8-3354] encoded FSM with state register 'uart_state_reg' using enco
 ---------------------------------------------------------------------------------------------------
 INFO: [Synth 8-3354] encoded FSM with state register 'state_reg' using encoding 'sequential' in module 'top'
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:13 ; elapsed = 00:00:15 . Memory (MB): peak = 859.758 ; gain = 551.531
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:25 ; elapsed = 00:00:28 . Memory (MB): peak = 858.609 ; gain = 550.570
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
 +------+--------------+------------+----------+
 |      |RTL Partition |Replication |Instances |
 +------+--------------+------------+----------+
-|1     |top__GB0      |           1|     29631|
-|2     |top__GB1      |           1|     10978|
-|3     |top__GB2      |           1|     23258|
-|4     |top__GB3      |           1|     35057|
+|1     |top__GB0      |           1|     39490|
+|2     |top__GB1      |           1|     23258|
+|3     |top__GB2      |           1|     35057|
 +------+--------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -441,13 +439,12 @@ Detailed RTL Component Info :
 	   3 Input     32 Bit       Adders := 8     
 	   5 Input     32 Bit       Adders := 8     
 	   2 Input     32 Bit       Adders := 7     
-	   2 Input     28 Bit       Adders := 1     
 	   2 Input     27 Bit       Adders := 1     
 	   2 Input     16 Bit       Adders := 2     
 	   2 Input      9 Bit       Adders := 8     
-	   2 Input      8 Bit       Adders := 80    
 	   2 Input      7 Bit       Adders := 17    
 	   2 Input      5 Bit       Adders := 1     
+	   2 Input      4 Bit       Adders := 40    
 	   2 Input      3 Bit       Adders := 2     
 +---XORs : 
 	   4 Input     32 Bit         XORs := 8     
@@ -455,22 +452,20 @@ Detailed RTL Component Info :
 	   3 Input     32 Bit         XORs := 16    
 +---Registers : 
 	              160 Bit    Registers := 8     
-	               32 Bit    Registers := 170   
-	               28 Bit    Registers := 1     
+	               32 Bit    Registers := 169   
 	               16 Bit    Registers := 2     
 	                8 Bit    Registers := 84    
 	                7 Bit    Registers := 17    
 	                5 Bit    Registers := 1     
 	                3 Bit    Registers := 2     
-	                1 Bit    Registers := 21    
+	                1 Bit    Registers := 20    
 +---Muxes : 
-	   2 Input     32 Bit        Muxes := 386   
+	   2 Input     32 Bit        Muxes := 384   
 	   5 Input     32 Bit        Muxes := 8     
 	   6 Input     32 Bit        Muxes := 1     
-	   2 Input     28 Bit        Muxes := 3     
-	   6 Input     28 Bit        Muxes := 1     
+	   2 Input     27 Bit        Muxes := 1     
 	   2 Input     16 Bit        Muxes := 2     
-	   2 Input      8 Bit        Muxes := 42    
+	   2 Input      8 Bit        Muxes := 2     
 	   4 Input      8 Bit        Muxes := 2     
 	   2 Input      7 Bit        Muxes := 16    
 	   4 Input      7 Bit        Muxes := 1     
@@ -478,7 +473,7 @@ Detailed RTL Component Info :
 	   2 Input      5 Bit        Muxes := 5     
 	   4 Input      5 Bit        Muxes := 1     
 	   4 Input      4 Bit        Muxes := 1     
-	   2 Input      4 Bit        Muxes := 28    
+	   2 Input      4 Bit        Muxes := 68    
 	  10 Input      4 Bit        Muxes := 64    
 	   2 Input      3 Bit        Muxes := 40    
 	   5 Input      3 Bit        Muxes := 2     
@@ -487,10 +482,10 @@ Detailed RTL Component Info :
 	   2 Input      2 Bit        Muxes := 29    
 	   3 Input      2 Bit        Muxes := 16    
 	   4 Input      2 Bit        Muxes := 1     
-	   2 Input      1 Bit        Muxes := 157   
+	   2 Input      1 Bit        Muxes := 154   
 	   3 Input      1 Bit        Muxes := 57    
-	   4 Input      1 Bit        Muxes := 86    
-	   6 Input      1 Bit        Muxes := 11    
+	   4 Input      1 Bit        Muxes := 85    
+	   6 Input      1 Bit        Muxes := 8     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -546,6 +541,15 @@ Detailed RTL Component Info :
 	   2 Input      3 Bit        Muxes := 4     
 	   3 Input      2 Bit        Muxes := 1     
 Module nonce_bcd_simple__2 
+Detailed RTL Component Info : 
++---Adders : 
+	   3 Input     32 Bit       Adders := 1     
++---Muxes : 
+	  10 Input      4 Bit        Muxes := 8     
+	   2 Input      4 Bit        Muxes := 3     
+	   2 Input      3 Bit        Muxes := 4     
+	   3 Input      2 Bit        Muxes := 1     
+Module nonce_bcd_simple__3 
 Detailed RTL Component Info : 
 +---Adders : 
 	   3 Input     32 Bit       Adders := 1     
@@ -653,15 +657,6 @@ Detailed RTL Component Info :
 	   2 Input      2 Bit        Muxes := 3     
 	   2 Input      1 Bit        Muxes := 6     
 	   3 Input      1 Bit        Muxes := 7     
-Module nonce_bcd_simple__3 
-Detailed RTL Component Info : 
-+---Adders : 
-	   3 Input     32 Bit       Adders := 1     
-+---Muxes : 
-	  10 Input      4 Bit        Muxes := 8     
-	   2 Input      4 Bit        Muxes := 3     
-	   2 Input      3 Bit        Muxes := 4     
-	   3 Input      2 Bit        Muxes := 1     
 Module sha1_w_mem__4 
 Detailed RTL Component Info : 
 +---Adders : 
@@ -876,36 +871,33 @@ Module top
 Detailed RTL Component Info : 
 +---Adders : 
 	   2 Input     32 Bit       Adders := 7     
-	   2 Input     28 Bit       Adders := 1     
 	   2 Input     27 Bit       Adders := 1     
 	   2 Input      9 Bit       Adders := 8     
-	   2 Input      8 Bit       Adders := 80    
 	   2 Input      7 Bit       Adders := 1     
 	   2 Input      5 Bit       Adders := 1     
+	   2 Input      4 Bit       Adders := 40    
 +---Registers : 
 	              160 Bit    Registers := 8     
-	               32 Bit    Registers := 2     
-	               28 Bit    Registers := 1     
+	               32 Bit    Registers := 1     
 	                8 Bit    Registers := 81    
 	                7 Bit    Registers := 1     
 	                5 Bit    Registers := 1     
-	                1 Bit    Registers := 8     
+	                1 Bit    Registers := 7     
 +---Muxes : 
-	   2 Input     32 Bit        Muxes := 2     
 	   6 Input     32 Bit        Muxes := 1     
-	   2 Input     28 Bit        Muxes := 3     
-	   6 Input     28 Bit        Muxes := 1     
+	   2 Input     27 Bit        Muxes := 1     
 	   4 Input      8 Bit        Muxes := 2     
-	   2 Input      8 Bit        Muxes := 41    
+	   2 Input      8 Bit        Muxes := 1     
 	   4 Input      7 Bit        Muxes := 1     
 	   4 Input      5 Bit        Muxes := 1     
+	   2 Input      4 Bit        Muxes := 40    
 	   6 Input      3 Bit        Muxes := 1     
 	   2 Input      3 Bit        Muxes := 1     
 	   4 Input      2 Bit        Muxes := 1     
 	   2 Input      2 Bit        Muxes := 1     
-	   2 Input      1 Bit        Muxes := 86    
-	   4 Input      1 Bit        Muxes := 86    
-	   6 Input      1 Bit        Muxes := 11    
+	   2 Input      1 Bit        Muxes := 83    
+	   4 Input      1 Bit        Muxes := 85    
+	   6 Input      1 Bit        Muxes := 8     
 ---------------------------------------------------------------------------------
 Finished RTL Hierarchical Component Statistics
 ---------------------------------------------------------------------------------
@@ -954,9 +946,9 @@ INFO: [Synth 8-5545] ROM "digit_count" won't be mapped to RAM because address si
 DSP Report: Generating DSP remainder_d90, operation Mode is: (A:0xf5e100)*B.
 DSP Report: operator remainder_d90 is absorbed into DSP remainder_d90.
 DSP Report: operator remainder_d90 is absorbed into DSP remainder_d90.
-INFO: [Synth 8-3333] propagating constant 0 across sequential element (insti_3/\sha1_next_reg[0] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (insti_2/\sha1_next_reg[0] )
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:36 ; elapsed = 00:01:39 . Memory (MB): peak = 995.926 ; gain = 687.699
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:02:14 ; elapsed = 00:02:17 . Memory (MB): peak = 973.957 ; gain = 665.918
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP and Shift Register Reporting
@@ -985,38 +977,36 @@ Report RTL Partitions:
 +------+--------------+------------+----------+
 |      |RTL Partition |Replication |Instances |
 +------+--------------+------------+----------+
-|1     |top__GB0      |           1|     18383|
-|2     |top__GB1      |           1|      6781|
-|3     |top__GB2      |           1|     14616|
-|4     |top__GB3      |           1|     21579|
+|1     |top__GB0      |           1|     24364|
+|2     |top__GB1      |           1|     14616|
+|3     |top__GB2      |           1|     21578|
 +------+--------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:01:51 ; elapsed = 00:01:55 . Memory (MB): peak = 995.926 ; gain = 687.699
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:02:34 ; elapsed = 00:02:39 . Memory (MB): peak = 973.957 ; gain = 665.918
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:01:51 ; elapsed = 00:01:55 . Memory (MB): peak = 995.926 ; gain = 687.699
+Finished Timing Optimization : Time (s): cpu = 00:02:34 ; elapsed = 00:02:39 . Memory (MB): peak = 973.957 ; gain = 665.918
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
 +------+--------------+------------+----------+
 |      |RTL Partition |Replication |Instances |
 +------+--------------+------------+----------+
-|1     |top__GB0      |           1|     18383|
-|2     |top__GB1      |           1|      6781|
-|3     |top__GB2      |           1|     14616|
-|4     |top__GB3      |           1|     21579|
+|1     |top__GB0      |           1|     24364|
+|2     |top__GB1      |           1|     14616|
+|3     |top__GB2      |           1|     21578|
 +------+--------------+------------+----------+
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:02:00 ; elapsed = 00:02:04 . Memory (MB): peak = 1116.125 ; gain = 807.898
+Finished Technology Mapping : Time (s): cpu = 00:02:46 ; elapsed = 00:02:51 . Memory (MB): peak = 1143.551 ; gain = 835.512
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1040,7 +1030,7 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:02:02 ; elapsed = 00:02:07 . Memory (MB): peak = 1116.125 ; gain = 807.898
+Finished IO Insertion : Time (s): cpu = 00:02:49 ; elapsed = 00:02:54 . Memory (MB): peak = 1143.551 ; gain = 835.512
 ---------------------------------------------------------------------------------
 
 Report Check Netlist: 
@@ -1053,7 +1043,7 @@ Report Check Netlist:
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:02:02 ; elapsed = 00:02:07 . Memory (MB): peak = 1116.125 ; gain = 807.898
+Finished Renaming Generated Instances : Time (s): cpu = 00:02:49 ; elapsed = 00:02:54 . Memory (MB): peak = 1143.551 ; gain = 835.512
 ---------------------------------------------------------------------------------
 
 Report RTL Partitions: 
@@ -1065,25 +1055,25 @@ Report RTL Partitions:
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:02:04 ; elapsed = 00:02:08 . Memory (MB): peak = 1116.125 ; gain = 807.898
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:02:52 ; elapsed = 00:02:57 . Memory (MB): peak = 1143.551 ; gain = 835.512
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:02:06 ; elapsed = 00:02:11 . Memory (MB): peak = 1116.125 ; gain = 807.898
+Finished Renaming Generated Ports : Time (s): cpu = 00:02:53 ; elapsed = 00:02:58 . Memory (MB): peak = 1143.551 ; gain = 835.512
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:02:08 ; elapsed = 00:02:12 . Memory (MB): peak = 1116.125 ; gain = 807.898
+Finished Handling Custom Attributes : Time (s): cpu = 00:02:54 ; elapsed = 00:02:59 . Memory (MB): peak = 1143.551 ; gain = 835.512
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:02:08 ; elapsed = 00:02:13 . Memory (MB): peak = 1116.125 ; gain = 807.898
+Finished Renaming Generated Nets : Time (s): cpu = 00:02:54 ; elapsed = 00:02:59 . Memory (MB): peak = 1143.551 ; gain = 835.512
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -1099,79 +1089,77 @@ Report Cell Usage:
 +------+--------+------+
 |      |Cell    |Count |
 +------+--------+------+
-|1     |CARRY4  |  1415|
+|1     |CARRY4  |  1408|
 |2     |DSP48E1 |     8|
-|3     |LUT1    |   815|
-|4     |LUT2    |  4096|
-|5     |LUT3    |  2987|
-|6     |LUT4    |  4615|
-|7     |LUT5    |  2189|
-|8     |LUT6    |  4635|
-|9     |MUXF7   |   512|
-|10    |MUXF8   |   256|
+|3     |LUT1    |   816|
+|4     |LUT2    |  4138|
+|5     |LUT3    |  3007|
+|6     |LUT4    |  4576|
+|7     |LUT5    |  2133|
+|8     |LUT6    |  4552|
+|9     |MUXF7   |   539|
+|10    |MUXF8   |   260|
 |11    |FDCE    |  6890|
 |12    |FDPE    |     3|
-|13    |FDRE    |  2004|
+|13    |FDRE    |  1951|
 +------+--------+------+
 
 Report Instance Areas: 
 +------+-----------------------------+-------------------+------+
 |      |Instance                     |Module             |Cells |
 +------+-----------------------------+-------------------+------+
-|1     |top                          |                   | 30425|
-|2     |  inst                       |top                | 29121|
+|1     |top                          |                   | 30281|
+|2     |  inst                       |top                | 29100|
 |3     |    \bcd_loop[0].bcd_inst    |nonce_bcd_simple   |   581|
 |4     |    \bcd_loop[1].bcd_inst    |nonce_bcd_simple_0 |   574|
-|5     |    \bcd_loop[2].bcd_inst    |nonce_bcd_simple_1 |   579|
-|6     |    \bcd_loop[3].bcd_inst    |nonce_bcd_simple_2 |   587|
-|7     |    \bcd_loop[4].bcd_inst    |nonce_bcd_simple_3 |   588|
-|8     |    \bcd_loop[5].bcd_inst    |nonce_bcd_simple_4 |   579|
-|9     |    \bcd_loop[6].bcd_inst    |nonce_bcd_simple_5 |   574|
-|10    |    \bcd_loop[7].bcd_inst    |nonce_bcd_simple_6 |   579|
+|5     |    \bcd_loop[2].bcd_inst    |nonce_bcd_simple_1 |   574|
+|6     |    \bcd_loop[3].bcd_inst    |nonce_bcd_simple_2 |   579|
+|7     |    \bcd_loop[4].bcd_inst    |nonce_bcd_simple_3 |   579|
+|8     |    \bcd_loop[5].bcd_inst    |nonce_bcd_simple_4 |   588|
+|9     |    \bcd_loop[6].bcd_inst    |nonce_bcd_simple_5 |   588|
+|10    |    \bcd_loop[7].bcd_inst    |nonce_bcd_simple_6 |   587|
 |11    |    \sha1_loop[0].sha1_inst  |sha1_core          |  2668|
 |12    |      w_mem_inst             |sha1_w_mem_20      |  1664|
 |13    |    \sha1_loop[1].sha1_inst  |sha1_core_7        |  2633|
 |14    |      w_mem_inst             |sha1_w_mem_19      |  1629|
-|15    |    \sha1_loop[2].sha1_inst  |sha1_core_8        |  2595|
-|16    |      w_mem_inst             |sha1_w_mem_18      |  1589|
-|17    |    \sha1_loop[3].sha1_inst  |sha1_core_9        |  2658|
-|18    |      w_mem_inst             |sha1_w_mem_17      |  1636|
-|19    |    \sha1_loop[4].sha1_inst  |sha1_core_10       |  2649|
-|20    |      w_mem_inst             |sha1_w_mem_16      |  1645|
-|21    |    \sha1_loop[5].sha1_inst  |sha1_core_11       |  2638|
-|22    |      w_mem_inst             |sha1_w_mem_15      |  1633|
-|23    |    \sha1_loop[6].sha1_inst  |sha1_core_12       |  2581|
-|24    |      w_mem_inst             |sha1_w_mem_14      |  1577|
-|25    |    \sha1_loop[7].sha1_inst  |sha1_core_13       |  2636|
-|26    |      w_mem_inst             |sha1_w_mem         |  1633|
+|15    |    \sha1_loop[2].sha1_inst  |sha1_core_8        |  2643|
+|16    |      w_mem_inst             |sha1_w_mem_18      |  1637|
+|17    |    \sha1_loop[3].sha1_inst  |sha1_core_9        |  2645|
+|18    |      w_mem_inst             |sha1_w_mem_17      |  1633|
+|19    |    \sha1_loop[4].sha1_inst  |sha1_core_10       |  2643|
+|20    |      w_mem_inst             |sha1_w_mem_16      |  1640|
+|21    |    \sha1_loop[5].sha1_inst  |sha1_core_11       |  2642|
+|22    |      w_mem_inst             |sha1_w_mem_15      |  1637|
+|23    |    \sha1_loop[6].sha1_inst  |sha1_core_12       |  2649|
+|24    |      w_mem_inst             |sha1_w_mem_14      |  1645|
+|25    |    \sha1_loop[7].sha1_inst  |sha1_core_13       |  2641|
+|26    |      w_mem_inst             |sha1_w_mem         |  1637|
 |27    |    uart_rx_inst             |uart_rx            |    92|
-|28    |    uart_tx_inst             |uart_tx            |    78|
+|28    |    uart_tx_inst             |uart_tx            |    77|
 +------+-----------------------------+-------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:02:08 ; elapsed = 00:02:13 . Memory (MB): peak = 1116.125 ; gain = 807.898
+Finished Writing Synthesis Report : Time (s): cpu = 00:02:54 ; elapsed = 00:02:59 . Memory (MB): peak = 1143.551 ; gain = 835.512
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:01:59 ; elapsed = 00:02:05 . Memory (MB): peak = 1116.125 ; gain = 434.766
-Synthesis Optimization Complete : Time (s): cpu = 00:02:08 ; elapsed = 00:02:13 . Memory (MB): peak = 1116.125 ; gain = 807.898
+Synthesis Optimization Runtime : Time (s): cpu = 00:02:34 ; elapsed = 00:02:44 . Memory (MB): peak = 1143.551 ; gain = 462.340
+Synthesis Optimization Complete : Time (s): cpu = 00:02:54 ; elapsed = 00:02:59 . Memory (MB): peak = 1143.551 ; gain = 835.512
 INFO: [Project 1-571] Translating synthesized netlist
-INFO: [Netlist 29-17] Analyzing 2191 Unisim elements for replacement
-INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Netlist 29-17] Analyzing 2215 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 1 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
 INFO: [Common 17-83] Releasing license: Synthesis
-190 Infos, 104 Warnings, 0 Critical Warnings and 0 Errors encountered.
+190 Infos, 103 Warnings, 0 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:02:16 ; elapsed = 00:02:21 . Memory (MB): peak = 1116.125 ; gain = 821.215
+synth_design: Time (s): cpu = 00:02:58 ; elapsed = 00:03:04 . Memory (MB): peak = 1143.551 ; gain = 848.684
 WARNING: [Constraints 18-5210] No constraint will be written out.
 INFO: [Common 17-1381] The checkpoint 'C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.runs/design_1_top_0_0_synth_1/design_1_top_0_0.dcp' has been generated.
-write_checkpoint: Time (s): cpu = 00:00:07 ; elapsed = 00:00:05 . Memory (MB): peak = 1116.125 ; gain = 0.000
 INFO: [Coretcl 2-1174] Renamed 27 cell refs.
 WARNING: [Constraints 18-5210] No constraint will be written out.
 INFO: [Common 17-1381] The checkpoint 'C:/Users/Emerson/Documents/fpga/duinocoin_miner_ebaz4205_fpga/project_ebaz_miner.runs/design_1_top_0_0_synth_1/design_1_top_0_0.dcp' has been generated.
-write_checkpoint: Time (s): cpu = 00:00:06 ; elapsed = 00:00:06 . Memory (MB): peak = 1116.125 ; gain = 0.000
 INFO: [runtcl-4] Executing : report_utilization -file design_1_top_0_0_utilization_synth.rpt -pb design_1_top_0_0_utilization_synth.pb
-report_utilization: Time (s): cpu = 00:00:01 ; elapsed = 00:00:00.222 . Memory (MB): peak = 1116.125 ; gain = 0.000
-INFO: [Common 17-206] Exiting Vivado at Tue May 12 17:15:02 2026...
+report_utilization: Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.126 . Memory (MB): peak = 1143.551 ; gain = 0.000
+INFO: [Common 17-206] Exiting Vivado at Wed May 13 16:56:16 2026...

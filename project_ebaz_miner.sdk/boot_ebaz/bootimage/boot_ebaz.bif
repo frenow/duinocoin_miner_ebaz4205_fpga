@@ -1,0 +1,6 @@
+//arch = zynq; split = false; format = BIN
+the_ROM_image:
+{
+	[bootloader]C:\Users\Emerson\Documents\fpga\duinocoin_miner_ebaz4205_fpga\project_ebaz_miner.sdk\boot_ebaz\Debug\boot_ebaz.elf
+	C:\Users\Emerson\Documents\fpga\duinocoin_miner_ebaz4205_fpga\project_ebaz_miner.sdk\design_1_wrapper_hw_platform_0\design_1_wrapper.bit
+}
