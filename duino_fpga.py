@@ -7,6 +7,12 @@ import time  # Para temporização e timestamps
 import serial
 from datetime import datetime  # Para timestamps detalhados nos logs
 
+# Garante saida UTF-8 no console (evita crash com emojis no Windows/cp1252)
+try:
+    sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+except Exception:
+    pass
+
 # ===== DEFINIÇÕES DE CORES ANSI =====
 class Colors:
     """Cores ANSI para terminal"""
@@ -40,43 +46,108 @@ class Colors:
     DEBUG = f'{BOLD}{MAGENTA}'
 
 # Configurações
-COM_PORT = "COM20"
+COM_PORT = "COM5"
 BAUDRATE = 115200 # Alterado 115200
 TIMEOUT = 60
 NODE_ADDRESS = '92.246.129.145'  # IP do servidor DuinoCoin
 NODE_PORT = 5089  # Porta do servidor (como int, não string)
+
+# Faixa maxima de nonce que o bitstream FPGA varre (= parametro DIFFICULTY no top.v).
+# No DuinoCoin o nonce fica em [0, 100*dificuldade]; logo a dificuldade maxima
+# solucionavel = FPGA_MAX_NONCE // 100. Ajuste ao reflashar o FPGA.
+# Faixa de nonce do bitstream = parametro DIFFICULTY do top.v.
+# ATENCAO: 999_999_999 corresponde ao BITSTREAM NOVO (DIFFICULTY=999999999).
+# So use este valor DEPOIS de regravar o FPGA. Com o bitstream antigo
+# (teto ~100M), volte para 100_000_000 senao havera reconexoes.
+FPGA_MAX_NONCE = 999_999_999
+MAX_DIFFICULTY = FPGA_MAX_NONCE // 100  # ~10M
+
+# Hashrate MAXIMO reportado a pool. Com o bitstream novo o FPGA resolve a
+# dificuldade que a pool pede para ~10 MH/s (~2M), entao reportamos o valor
+# REAL (cap alto -> min(real, cap) = real). Assim nao ha subnotificacao e a
+# recompensa (Kolka) fica correta.
+REPORT_HASHRATE_CAP = 20_000_000  # H/s (folga acima do hashrate real)
+
+# Conexao serial persistente (aberta uma unica vez e reutilizada entre jobs)
+ser = None
+
+def get_serial():
+    """Abre (ou reutiliza) a conexao serial persistente com o FPGA."""
+    global ser
+    if ser is not None and ser.is_open:
+        return ser
+    ser = serial.Serial(COM_PORT, BAUDRATE, timeout=TIMEOUT)
+    return ser
+
+def close_serial():
+    """Fecha a serial para forcar reabertura/resync na proxima chamada."""
+    global ser
+    try:
+        if ser is not None and ser.is_open:
+            ser.close()
+    except Exception:
+        pass
+    ser = None
+
 def send_to_fpga(data):
     """
-    Envia 80 bytes para FPGA via UART e recebe 4 bytes de nonce
-    
-    Args:
-        data: 80 bytes a serem enviados (message + expected_hash)
-    
+    Envia 80 bytes para o FPGA e le 4 bytes de nonce (big-endian).
+
+    Reutiliza a porta serial (sem abrir/fechar por job) e limpa o buffer de
+    entrada antes de enviar para evitar dessincronizacao com bytes antigos.
+
     Returns:
-        Nonce (4 bytes convertido para int) ou None se timeout
+        Nonce (int) ou None em timeout/erro.
     """
     try:
-        # Abre porta serial
-        with serial.Serial(COM_PORT, BAUDRATE, timeout=TIMEOUT) as ser:
-            # Envia 80 bytes
-            ser.write(data)
-            print(f"{Colors.INFO}📤 [ENVIO]{Colors.RESET} {data.decode('ascii', errors='ignore')} (80 bytes)")
-            
-            # Recebe 4 bytes do nonce (32 bits)
-            response = b""
-            while len(response) < 4:
-                byte = ser.read(1)
-                if not byte:  # Timeout
-                    return None
-                response += byte
-            
-            # Converte 4 bytes em inteiro (big-endian)
-            nonce = int.from_bytes(response, byteorder='big')
-            return nonce
-                
+        s = get_serial()
+        s.reset_input_buffer()  # descarta bytes residuais de jobs anteriores
+        s.write(data)
+        print(f"{Colors.INFO}📤 [ENVIO]{Colors.RESET} {data.decode('ascii', errors='ignore')} (80 bytes)")
+
+        response = s.read(4)  # bloqueia ate 4 bytes ou timeout
+        if len(response) < 4:
+            close_serial()    # timeout/parcial -> reabre depois para resincronizar
+            return None
+        return int.from_bytes(response, byteorder='big')
+
     except Exception as e:
         print(f"{Colors.ERROR}❌ [ERRO FPGA]{Colors.RESET} {e}")
+        close_serial()
         return None
+
+def is_valid_share(message_hash, nonce, expected_hash):
+    """
+    Validacao local: confere se SHA1(message_hash + str(nonce)) == expected_hash.
+    Evita enviar submit incorreto para a pool (protege a reputacao do minerador).
+    """
+    calc = hashlib.sha1((message_hash + str(nonce)).encode('ascii')).hexdigest()
+    return calc == expected_hash.strip().lower()
+
+# ===== ESTATISTICAS DA SESSAO =====
+stats_aceitas   = 0    # shares aceitas pela pool (GOOD)
+stats_rejeitadas = 0   # shares rejeitadas pela pool (BAD/desconhecida)
+stats_invalidas  = 0   # resultados invalidos barrados localmente (nao enviados)
+stats_hr_sum = 0.0     # soma de hashrate das shares aceitas (para media)
+stats_hr_n   = 0
+session_start = None   # definido ao iniciar
+
+def print_session_stats():
+    """Imprime o rodape com o resumo acumulado da sessao."""
+    total = stats_aceitas + stats_rejeitadas + stats_invalidas
+    taxa = (stats_aceitas / total * 100.0) if total else 0.0
+    hr_media = (stats_hr_sum / stats_hr_n) if stats_hr_n else 0.0
+    up = (time.time() - session_start) if session_start else 0.0
+    h, rem = divmod(int(up), 3600)
+    m, s = divmod(rem, 60)
+    print(f"{Colors.BOLD}{Colors.CYAN}📊 [SESSÃO]{Colors.RESET} "
+          f"{Colors.GREEN}✓ {stats_aceitas}{Colors.RESET} | "
+          f"{Colors.RED}✗ {stats_rejeitadas}{Colors.RESET} | "
+          f"{Colors.YELLOW}⚠ inv {stats_invalidas}{Colors.RESET} | "
+          f"Aceitação: {Colors.CYAN}{taxa:.1f}%{Colors.RESET} | "
+          f"⚡ Média: {Colors.CYAN}{int(hr_media/1000)}{Colors.RESET} kH/s | "
+          f"⏱ {h:02d}:{m:02d}:{s:02d}")
+
 def current_time():
     """Retorna a hora atual formatada como HH:MM:SS"""
     return time.strftime("%H:%M:%S", time.localtime())
@@ -177,6 +248,7 @@ print(f'{Colors.INFO}📝 [{current_time()}]{Colors.RESET} Arquivo de log criado
 
 # Loop infinito para reconectação automática em caso de falha
 attempt = 0
+session_start = time.time()
 while True:
     attempt += 1
     soc = None
@@ -219,8 +291,11 @@ while True:
             expected_hash = job_parts[1]     # Hash esperado
             difficulty = job_parts[2]        # Dificuldade
             
-            if (int(difficulty) > 1000000): # minerador fpga v1 só irá funcionar com dificuldade até 1000000
-                print(f'{Colors.WARNING}⚠️  [{current_time()}]{Colors.RESET} Dificuldade muito alta: {difficulty} (máximo suportado: 1.0M)')
+            # IMPORTANTE: o protocolo exige 1 resultado por job. Para abandonar um
+            # job sem enviar submit incorreto, e preciso RECONECTAR (break), pois
+            # pedir novo JOB sem submeter dessincroniza (servidor: "Incorrect result").
+            if int(difficulty) > MAX_DIFFICULTY:  # acima disso o nonce excede a faixa do FPGA
+                print(f'{Colors.WARNING}⚠️  [{current_time()}]{Colors.RESET} Dificuldade alta demais p/ o FPGA: {difficulty} (máx: {MAX_DIFFICULTY}) - reconectando')
                 break
             
             # Combina mensagem + hash esperado (80 bytes total: 40+40)
@@ -239,21 +314,32 @@ while True:
             nonce = send_to_fpga(payload)
             
             if nonce is None:
-                print(f'{Colors.ERROR}✗ [{current_time()}]{Colors.RESET} Timeout na FPGA, solicitando novo job')
+                print(f'{Colors.ERROR}✗ [{current_time()}]{Colors.RESET} Timeout na FPGA, reconectando')
                 break
             
-            # Hash encontrado! Calcula estatísticas
+            # Calcula estatísticas
             hashingStopTime = time.time()
             timeDifference = hashingStopTime - hashingStartTime
+            hashrate = (nonce / timeDifference) if (nonce > 0 and timeDifference > 0) else 0
             
-            # Se nonce é válido (não zero), calcula hashrate
-            if nonce > 0:
-                hashrate = nonce / timeDifference  # Hashes por segundo
-            else:
-                hashrate = 0
-                
-            # Envia resultado para o servidor: nonce,hashrate,nome_do_software
-            result_msg = f"{nonce},{int(hashrate)},fpga_ebaz4205_miner"
+            # ===== VALIDAÇÃO LOCAL DO HASH (evita submit incorreto na pool) =====
+            # Se o FPGA nao encontrou o nonce (ex.: job fora da faixa ou glitch),
+            # o hash nao confere -> NAO enviamos nada e reconectamos (abandona o job
+            # sem registrar share ruim na pool).
+            if not is_valid_share(message_hash, nonce, expected_hash):
+                print(f'{Colors.WARNING}⚠️  [{current_time()}]{Colors.RESET} Resultado {Colors.RED}INVÁLIDO{Colors.RESET} '
+                      f'(nonce {Colors.YELLOW}{nonce}{Colors.RESET}) — NÃO enviado à pool, reconectando')
+                log_rejected_share(error_log_file, nonce, hashrate, difficulty,
+                                   message_hash, expected_hash, "LOCAL_INVALID (nao enviado)", timeDifference)
+                stats_invalidas += 1
+                print_session_stats()
+                break
+            
+            # Envia resultado: nonce,hashrate,software. O hashrate reportado e
+            # limitado (REPORT_HASHRATE_CAP) para a pool nao escalar a dificuldade
+            # acima do que o FPGA consegue varrer (evita reconexoes constantes).
+            reported_hashrate = min(int(hashrate), REPORT_HASHRATE_CAP)
+            result_msg = f"{nonce},{reported_hashrate},fpga_ebaz4205_miner"
             soc.send(bytes(result_msg, encoding="utf8"))
             
             # Aguarda feedback do servidor
@@ -261,6 +347,9 @@ while True:
             
             # Se a resposta foi aceita
             if feedback[:4] == "GOOD":
+                stats_aceitas += 1
+                stats_hr_sum += hashrate
+                stats_hr_n   += 1
                 print(f'{Colors.SUCCESS}✓ [{current_time()}]{Colors.RESET} Share {Colors.GREEN}ACEITA{Colors.RESET} | '
                       f'💰 Nonce: {Colors.YELLOW}{nonce}{Colors.RESET} | '
                       f'⚡ Hashrate: {Colors.CYAN}{int(hashrate/1000)}{Colors.RESET} kH/s | '
@@ -268,6 +357,7 @@ while True:
                 
             # Se a resposta foi rejeitada
             elif feedback[:3] == "BAD":
+                stats_rejeitadas += 1
                 print(f'{Colors.WARNING}⚠️  [{current_time()}]{Colors.ERROR} BAD: {Colors.ERROR}{feedback}{Colors.RESET}')
                 print(f'{Colors.ERROR}✗ [{current_time()}]{Colors.RESET} Share {Colors.RED}REJEITADA{Colors.RESET} | '
                       f'💰 Nonce: {Colors.YELLOW}{nonce}{Colors.RESET} | '
@@ -277,6 +367,7 @@ while True:
                 log_rejected_share(error_log_file, nonce, hashrate, difficulty, message_hash, expected_hash, feedback, timeDifference)
                 
             else:
+                stats_rejeitadas += 1
                 print(f'{Colors.WARNING}⚠️  [{current_time()}]{Colors.ERROR} Resposta desconhecida: {Colors.ERROR}{feedback}{Colors.RESET}')
                 print(f'{Colors.ERROR}✗ [{current_time()}]{Colors.RESET} Share {Colors.RED}REJEITADA{Colors.RESET} | '
                       f'💰 Nonce: {Colors.YELLOW}{nonce}{Colors.RESET} | '
@@ -284,6 +375,9 @@ while True:
                       f'🎯 Dificuldade: {Colors.YELLOW}{difficulty}{Colors.RESET}')
                 # Log do erro
                 log_rejected_share(error_log_file, nonce, hashrate, difficulty, message_hash, expected_hash, feedback, timeDifference)
+
+            # Rodape com o resumo acumulado da sessao
+            print_session_stats()
     
     # ===== TRATAMENTO DE ERROS =====
     except KeyboardInterrupt:
@@ -310,4 +404,13 @@ while True:
         # Aguarda antes de reconectar
         print(f'{Colors.WARNING}⚠️  [{current_time()}]{Colors.RESET} Tentativa #{attempt} falhou. Reconectando em 5s...')
         time.sleep(5)
+
+    finally:
+        # Garante fechamento do socket em qualquer saida do try (inclusive nos
+        # 'break' de reconexao), evitando vazamento de sockets.
+        if soc is not None:
+            try:
+                soc.close()
+            except Exception:
+                pass
         # NÃO usa os.execl(), apenas continua o loop (mais limpo)

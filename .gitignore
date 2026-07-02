@@ -1,0 +1,32 @@
+# Ignorar arquivos de sistema e diretórios ocultos
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Ignorar pastas de dependências
+node_modules/
+vendor/
+packages/
+impl_1/
+synth_1/
+project_1.cache/
+
+# Ignorar arquivos de log e banco de dados
+*.log
+*.sqlite
+*.db
+
+# Ignorar arquivos de configuração sensíveis e de ambiente
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Ignorar arquivos compilados ou gerados
+build/
+dist/
+out/
+*.class

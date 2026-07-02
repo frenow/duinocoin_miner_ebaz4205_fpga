@@ -43,7 +43,6 @@ module sha1_core(
                  input wire            reset_n,
 
                  input wire            init,
-                 input wire            next,
 
                  input wire [511 : 0]  block,
 
@@ -73,7 +72,7 @@ module sha1_core(
   //----------------------------------------------------------------
   // Registers including update variables and write enable.
   //----------------------------------------------------------------
-  reg [31 : 0] a_reg;
+  (* use_dsp = "yes" *) reg [31 : 0] a_reg;   // somador da rodada mapeado em DSP48
   reg [31 : 0] a_new;
   reg [31 : 0] b_reg;
   reg [31 : 0] b_new;
@@ -85,7 +84,7 @@ module sha1_core(
   reg [31 : 0] e_new;
   reg          a_e_we;
 
-  reg [31 : 0] H0_reg;
+  reg [31 : 0] H0_reg;   // digest: somas 1x por hash, fora do caminho critico -> logica normal
   reg [31 : 0] H0_new;
   reg [31 : 0] H1_reg;
   reg [31 : 0] H1_new;
@@ -119,7 +118,6 @@ module sha1_core(
   reg           digest_update;
   reg           state_init;
   reg           state_update;
-  reg           first_block;
   reg           ready_flag;
   reg           w_init;
   reg           w_next;
@@ -268,24 +266,13 @@ module sha1_core(
 
       if (state_init)
         begin
-          if (first_block)
-            begin
-              a_new  = H0_0;
-              b_new  = H0_1;
-              c_new  = H0_2;
-              d_new  = H0_3;
-              e_new  = H0_4;
-              a_e_we = 1;
-            end
-          else
-            begin
-              a_new  = H0_reg;
-              b_new  = H1_reg;
-              c_new  = H2_reg;
-              d_new  = H3_reg;
-              e_new  = H4_reg;
-              a_e_we = 1;
-            end
+          // Sempre 1o (e unico) bloco: carrega as constantes iniciais.
+          a_new  = H0_0;
+          b_new  = H0_1;
+          c_new  = H0_2;
+          d_new  = H0_3;
+          e_new  = H0_4;
+          a_e_we = 1;
         end
 
       if (state_update)
@@ -359,7 +346,6 @@ module sha1_core(
       digest_update    = 1'h0;
       state_init       = 1'h0;
       state_update     = 1'h0;
-      first_block      = 1'h0;
       ready_flag       = 1'h0;
       w_init           = 1'h0;
       w_next           = 1'h0;
@@ -378,18 +364,6 @@ module sha1_core(
             if (init)
               begin
                 digest_init      = 1'h1;
-                w_init           = 1'h1;
-                state_init       = 1'h1;
-                first_block      = 1'h1;
-                round_ctr_rst    = 1'h1;
-                digest_valid_new = 1'h0;
-                digest_valid_we  = 1'h1;
-                sha1_ctrl_new    = CTRL_ROUNDS;
-                sha1_ctrl_we     = 1'h1;
-              end
-
-            if (next)
-              begin
                 w_init           = 1'h1;
                 state_init       = 1'h1;
                 round_ctr_rst    = 1'h1;
@@ -426,8 +400,4 @@ module sha1_core(
       endcase // case (sha1_ctrl_reg)
     end // sha1_ctrl_fsm
 
-endmodule // sha1_core
-
-//======================================================================
-// EOF sha1_core.v
-//======================================================================
+endmodule 
