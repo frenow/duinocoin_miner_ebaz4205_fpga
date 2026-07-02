@@ -1,7 +1,7 @@
 Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 ----------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
-| Date             : Thu Jul  2 15:36:44 2026
+| Date             : Thu Jul  2 16:47:20 2026
 | Host             : DESKTOP-HM5HD61 running 64-bit major release  (build 9200)
 | Command          : report_power -file design_1_wrapper_power_routed.rpt -pb design_1_wrapper_power_summary_routed.pb -rpx design_1_wrapper_power_routed.rpx
 | Design           : design_1_wrapper
@@ -30,14 +30,14 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 1.472        |
+| Total On-Chip Power (W)  | 1.481        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 1.351        |
+| Dynamic (W)              | 1.360        |
 | Device Static (W)        | 0.121        |
 | Effective TJA (C/W)      | 11.5         |
-| Max Ambient (C)          | 68.0         |
-| Junction Temperature (C) | 42.0         |
+| Max Ambient (C)          | 67.9         |
+| Junction Temperature (C) | 42.1         |
 | Confidence Level         | Low          |
 | Setting File             | ---          |
 | Simulation Activity File | ---          |
@@ -53,18 +53,18 @@ Table of Contents
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
 | Clocks         |     0.015 |        3 |       --- |             --- |
-| Slice Logic    |     0.021 |    46463 |       --- |             --- |
-|   LUT as Logic |     0.019 |    15074 |     17600 |           85.65 |
-|   Register     |     0.001 |    20209 |     35200 |           57.41 |
-|   CARRY4       |    <0.001 |     1123 |      4400 |           25.52 |
-|   F7/F8 Muxes  |    <0.001 |      451 |     17600 |            2.56 |
-|   Others       |     0.000 |      213 |       --- |             --- |
-| Signals        |     0.017 |    28101 |       --- |             --- |
-| DSPs           |     0.011 |       54 |        80 |           67.50 |
+| Slice Logic    |     0.024 |    51084 |       --- |             --- |
+|   LUT as Logic |     0.022 |    16483 |     17600 |           93.65 |
+|   Register     |     0.001 |    22295 |     35200 |           63.34 |
+|   CARRY4       |    <0.001 |     1247 |      4400 |           28.34 |
+|   F7/F8 Muxes  |    <0.001 |      289 |     17600 |            1.64 |
+|   Others       |     0.000 |      244 |       --- |             --- |
+| Signals        |     0.021 |    31225 |       --- |             --- |
+| DSPs           |     0.013 |       60 |        80 |           75.00 |
 | I/O            |     0.007 |        5 |       100 |            5.00 |
 | PS7            |     1.280 |        1 |       --- |             --- |
 | Static Power   |     0.121 |          |           |                 |
-| Total          |     1.472 |          |           |                 |
+| Total          |     1.481 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -74,7 +74,7 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) |
 +-----------+-------------+-----------+-------------+------------+
-| Vccint    |       1.000 |     0.071 |       0.065 |      0.006 |
+| Vccint    |       1.000 |     0.080 |       0.073 |      0.006 |
 | Vccaux    |       1.800 |     0.008 |       0.000 |      0.008 |
 | Vcco33    |       3.300 |     0.003 |       0.002 |      0.001 |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |
@@ -150,13 +150,13 @@ Table of Contents
 +---------------------------------+-----------+
 | Name                            | Power (W) |
 +---------------------------------+-----------+
-| design_1_wrapper                |     1.351 |
-|   design_1_i                    |     1.345 |
+| design_1_wrapper                |     1.360 |
+|   design_1_i                    |     1.354 |
 |     processing_system7_0        |     1.280 |
 |       inst                      |     1.280 |
-|     top_0                       |     0.065 |
-|       inst                      |     0.065 |
-|         sha1_loop[0].sha1_inst  |     0.004 |
+|     top_0                       |     0.073 |
+|       inst                      |     0.073 |
+|         sha1_loop[0].sha1_inst  |     0.003 |
 |           w_mem_inst            |     0.002 |
 |         sha1_loop[10].sha1_inst |     0.003 |
 |           w_mem_inst            |     0.002 |
@@ -174,19 +174,23 @@ Table of Contents
 |           w_mem_inst            |     0.002 |
 |         sha1_loop[17].sha1_inst |     0.003 |
 |           w_mem_inst            |     0.002 |
+|         sha1_loop[18].sha1_inst |     0.003 |
+|           w_mem_inst            |     0.002 |
+|         sha1_loop[19].sha1_inst |     0.003 |
+|           w_mem_inst            |     0.002 |
 |         sha1_loop[1].sha1_inst  |     0.003 |
 |           w_mem_inst            |     0.002 |
 |         sha1_loop[2].sha1_inst  |     0.003 |
 |           w_mem_inst            |     0.002 |
-|         sha1_loop[3].sha1_inst  |     0.004 |
+|         sha1_loop[3].sha1_inst  |     0.003 |
 |           w_mem_inst            |     0.002 |
 |         sha1_loop[4].sha1_inst  |     0.003 |
 |           w_mem_inst            |     0.002 |
 |         sha1_loop[5].sha1_inst  |     0.003 |
 |           w_mem_inst            |     0.002 |
-|         sha1_loop[6].sha1_inst  |     0.003 |
+|         sha1_loop[6].sha1_inst  |     0.004 |
 |           w_mem_inst            |     0.002 |
-|         sha1_loop[7].sha1_inst  |     0.004 |
+|         sha1_loop[7].sha1_inst  |     0.003 |
 |           w_mem_inst            |     0.002 |
 |         sha1_loop[8].sha1_inst  |     0.003 |
 |           w_mem_inst            |     0.002 |

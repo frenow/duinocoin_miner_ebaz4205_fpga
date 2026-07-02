@@ -1,7 +1,7 @@
 Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2018.2 (win64) Build 2258646 Thu Jun 14 20:03:12 MDT 2018
-| Date         : Thu Jul  2 15:32:35 2026
+| Date         : Thu Jul  2 16:42:31 2026
 | Host         : DESKTOP-HM5HD61 running 64-bit major release  (build 9200)
 | Command      : report_drc -file design_1_wrapper_drc_opted.rpt -pb design_1_wrapper_drc_opted.pb -rpx design_1_wrapper_drc_opted.rpx
 | Design       : design_1_wrapper
@@ -24,12 +24,12 @@ Table of Contents
       Design limits: <entire design considered>
            Ruledeck: default
              Max violations: <unlimited>
-             Violations found: 162
+             Violations found: 180
 +--------+----------+------------------------+------------+
 | Rule   | Severity | Description            | Violations |
 +--------+----------+------------------------+------------+
-| DPIP-1 | Warning  | Input pipelining       | 144        |
-| DPOP-1 | Warning  | PREG Output pipelining | 18         |
+| DPIP-1 | Warning  | Input pipelining       | 160        |
+| DPOP-1 | Warning  | PREG Output pipelining | 20         |
 +--------+----------+------------------------+------------+
 
 2. REPORT DETAILS
@@ -396,360 +396,440 @@ Related violations: <none>
 
 DPIP-1#73 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[18].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[18].sha1_inst/a_new0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#74 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[18].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[18].sha1_inst/a_new0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#75 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[18].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[18].sha1_inst/a_new0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#76 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[18].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[18].sha1_inst/a_new0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#77 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[18].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[18].sha1_inst/a_new0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#78 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[18].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[18].sha1_inst/a_new0__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#79 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[18].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[18].sha1_inst/a_new0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#80 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[18].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[18].sha1_inst/a_new0__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#81 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[19].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[19].sha1_inst/a_new0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#82 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[19].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[19].sha1_inst/a_new0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#83 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[19].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[19].sha1_inst/a_new0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#84 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[19].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[19].sha1_inst/a_new0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#85 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[19].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[19].sha1_inst/a_new0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#86 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[19].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[19].sha1_inst/a_new0__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#87 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[19].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[19].sha1_inst/a_new0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#88 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[19].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[19].sha1_inst/a_new0__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#89 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#90 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#91 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#92 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#93 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#94 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#95 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#96 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#97 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#98 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#99 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#100 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#101 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#102 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#103 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#104 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#105 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#106 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#107 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#108 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#109 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#110 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#111 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#112 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#113 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#114 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#115 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#116 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#117 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#118 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#119 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#120 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#121 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#122 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#123 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#124 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#125 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#126 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#127 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#128 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#129 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#130 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#131 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#132 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#133 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#134 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#135 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#136 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#137 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#138 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#139 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#140 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#141 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#142 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#143 Warning
 Input pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+DSP design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
 
 DPIP-1#144 Warning
+Input pipelining  
+DSP design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#145 Warning
+Input pipelining  
+DSP design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#146 Warning
+Input pipelining  
+DSP design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#147 Warning
+Input pipelining  
+DSP design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#148 Warning
+Input pipelining  
+DSP design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#149 Warning
+Input pipelining  
+DSP design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#150 Warning
+Input pipelining  
+DSP design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#151 Warning
+Input pipelining  
+DSP design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#152 Warning
+Input pipelining  
+DSP design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#153 Warning
+Input pipelining  
+DSP design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#154 Warning
+Input pipelining  
+DSP design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#155 Warning
+Input pipelining  
+DSP design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0 input design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#156 Warning
+Input pipelining  
+DSP design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0__0/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#157 Warning
+Input pipelining  
+DSP design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0__0/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#158 Warning
+Input pipelining  
+DSP design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0__0 input design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0__0/C[47:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#159 Warning
+Input pipelining  
+DSP design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0__1/A[29:0] is not pipelined. Pipelining DSP48 input will improve performance.
+Related violations: <none>
+
+DPIP-1#160 Warning
 Input pipelining  
 DSP design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0__1 input design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0__1/B[17:0] is not pipelined. Pipelining DSP48 input will improve performance.
 Related violations: <none>
@@ -801,45 +881,55 @@ Related violations: <none>
 
 DPOP-1#10 Warning
 PREG Output pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__1 output design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+DSP design_1_i/top_0/inst/sha1_loop[18].sha1_inst/a_new0__1 output design_1_i/top_0/inst/sha1_loop[18].sha1_inst/a_new0__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
 Related violations: <none>
 
 DPOP-1#11 Warning
 PREG Output pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__1 output design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+DSP design_1_i/top_0/inst/sha1_loop[19].sha1_inst/a_new0__1 output design_1_i/top_0/inst/sha1_loop[19].sha1_inst/a_new0__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
 Related violations: <none>
 
 DPOP-1#12 Warning
 PREG Output pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__1 output design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+DSP design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__1 output design_1_i/top_0/inst/sha1_loop[1].sha1_inst/a_new0__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
 Related violations: <none>
 
 DPOP-1#13 Warning
 PREG Output pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__1 output design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+DSP design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__1 output design_1_i/top_0/inst/sha1_loop[2].sha1_inst/a_new0__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
 Related violations: <none>
 
 DPOP-1#14 Warning
 PREG Output pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__1 output design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+DSP design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__1 output design_1_i/top_0/inst/sha1_loop[3].sha1_inst/a_new0__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
 Related violations: <none>
 
 DPOP-1#15 Warning
 PREG Output pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__1 output design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+DSP design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__1 output design_1_i/top_0/inst/sha1_loop[4].sha1_inst/a_new0__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
 Related violations: <none>
 
 DPOP-1#16 Warning
 PREG Output pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__1 output design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+DSP design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__1 output design_1_i/top_0/inst/sha1_loop[5].sha1_inst/a_new0__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
 Related violations: <none>
 
 DPOP-1#17 Warning
 PREG Output pipelining  
-DSP design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__1 output design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+DSP design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__1 output design_1_i/top_0/inst/sha1_loop[6].sha1_inst/a_new0__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
 Related violations: <none>
 
 DPOP-1#18 Warning
+PREG Output pipelining  
+DSP design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__1 output design_1_i/top_0/inst/sha1_loop[7].sha1_inst/a_new0__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#19 Warning
+PREG Output pipelining  
+DSP design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__1 output design_1_i/top_0/inst/sha1_loop[8].sha1_inst/a_new0__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
+Related violations: <none>
+
+DPOP-1#20 Warning
 PREG Output pipelining  
 DSP design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0__1 output design_1_i/top_0/inst/sha1_loop[9].sha1_inst/a_new0__1/P[47:0] is not pipelined (PREG=0). Pipelining the DSP48 output will improve performance and often saves power so it is suggested whenever possible to fully pipeline this function.  If this DSP48 function was inferred, it is suggested to describe an additional register stage after this function.  If the DSP48 was instantiated in the design, it is suggested to set the PREG attribute to 1.
 Related violations: <none>

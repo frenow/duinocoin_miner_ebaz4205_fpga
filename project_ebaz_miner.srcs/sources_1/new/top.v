@@ -23,7 +23,7 @@ parameter DIFFICULTY = 999999999; // Nonce maximo para proof-of-work
 
 // Quantidade de cores SHA-1 em paralelo (nonce_0 + 0 .. nonce_0 + MAX_CORE-1)
 // Hashrate ~ MAX_CORE / ~86 ciclos x 50MHz. Aumente enquanto couber no FPGA.
-localparam MAX_CORE = 18;
+localparam MAX_CORE = 20;
 
 // ========================================================================
 // Nonces
